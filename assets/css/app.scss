@@ -1,0 +1,5 @@
+html, body{
+  @apply font-Circular bg-white font-normal text-base text-black leading-snug;
+}
+@import 'components/form-custom';
+@import 'editor';
