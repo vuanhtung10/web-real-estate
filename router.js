@@ -6,6 +6,7 @@ import google from '~/pages/auth/google'
 import index from '~/pages/index'
 import login from '~/pages/login'
 import register from '~/pages/register'
+import testComponent from '~/pages/test-component'
 Vue.use(Router)
 
 // function interopDefault(promise) {
@@ -35,6 +36,11 @@ export function createRouter() {
         path: '/',
         name: 'index',
         component: index,
+      },
+      {
+        path: '/test-component',
+        name: 'test-component',
+        component: testComponent,
       },
       {
         path: '/login',
