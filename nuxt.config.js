@@ -26,10 +26,10 @@ export default {
   buildModules: [
     // https://go.nuxtjs.dev/tailwindcss
     '@nuxtjs/eslint-module',
-    '@nuxtjs/tailwindcss',
     '@nuxt/image',
     '@nuxtjs/router',
     '@nuxtjs/fontawesome',
+    '@nuxt/postcss8',
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
@@ -100,6 +100,12 @@ export default {
   build: {
     extractCSS: true,
     publicPath: '/_nuxt/',
+    postcss: {
+      plugins: {
+        tailwindcss: {},
+        autoprefixer: {},
+      },
+    },
   },
   server: {
     host: '0.0.0.0',

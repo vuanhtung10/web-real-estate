@@ -1,7 +1,7 @@
 <template>
   <div>
     <div
-      class="bg-black w-[190px] h-[50px] text-white text-2xl p-4 min-w-[220px]"
+      class="bg-black w-[190px] h-[50px] text-white text-2xl p-[20px] min-w-[220px]"
     >
       {{ label }}
     </div>
