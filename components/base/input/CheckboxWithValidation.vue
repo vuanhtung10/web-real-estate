@@ -1,11 +1,13 @@
 <template>
-  <div>
+  <div class="checkbox-custom">
     <el-checkbox v-model="checkAll" @change="handleCheckAllChange"
       >Check all</el-checkbox
     >
     <el-checkbox-group
       v-if="listOptions"
       v-model="innerValue"
+      text-color="red"
+      fill="#000000"
       @change="handleCheckedOptionsChange"
     >
       <el-checkbox
@@ -63,3 +65,19 @@ export default {
   },
 }
 </script>
+<style lang="scss">
+.checkbox-custom {
+  .el-checkbox__label {
+    color: black !important;
+  }
+  .el-checkbox__inner::after {
+    border: 1px solid black;
+    border-left: 0;
+    border-top: 0;
+  }
+  .el-checkbox__inner {
+    border-color: black !important;
+    background-color: white !important;
+  }
+}
+</style>

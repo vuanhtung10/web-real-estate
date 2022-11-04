@@ -20,9 +20,9 @@ export default {
     innerValue(newVal) {
       this.$emit('input', newVal)
     },
-    value(newVal) {
-      this.innerValue = newVal
-    },
+    // value(newVal) {
+    //   this.innerValue = newVal
+    // },
   },
   created() {
     if (this.value) {
