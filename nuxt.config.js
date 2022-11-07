@@ -14,7 +14,11 @@ export default {
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
   },
 
-  css: ['~/assets/css/fonts.scss', '~/assets/css/app.scss'],
+  css: [
+    '~/assets/css/fonts.scss',
+    '~/assets/css/app.scss',
+    '@fortawesome/fontawesome-svg-core/styles.css',
+  ],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: ['~/plugins/vue-lazyload', '~/plugins/element-ui'],
@@ -26,17 +30,17 @@ export default {
   buildModules: [
     // https://go.nuxtjs.dev/tailwindcss
     '@nuxtjs/eslint-module',
-    '@nuxtjs/tailwindcss',
     '@nuxt/image',
     '@nuxtjs/router',
     '@nuxtjs/fontawesome',
+    '@nuxt/postcss8',
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: ['@nuxtjs/axios', '@nuxtjs/auth', 'vue-toastification/nuxt'],
 
   auth: {
-    plugins: ['~/plugins/auth'],
+    plugins: ['~/plugins/auth', '~/plugins/fontawesome.js'],
     // Options
     redirect: {
       login: '/login',
@@ -100,6 +104,12 @@ export default {
   build: {
     extractCSS: true,
     publicPath: '/_nuxt/',
+    postcss: {
+      plugins: {
+        tailwindcss: {},
+        autoprefixer: {},
+      },
+    },
   },
   server: {
     host: '0.0.0.0',

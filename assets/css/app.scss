@@ -3,3 +3,6 @@ html, body{
 }
 @import 'components/form-custom';
 @import 'editor';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
