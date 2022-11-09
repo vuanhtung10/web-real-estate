@@ -1,5 +1,14 @@
 <template>
   <div>
+    <div>test</div>
+    <input-with-validation v-model="email" label="email" />
+    <div>
+      <pagination
+        :total-item="totalItem"
+        @handleChangePage="handleChangePage"
+        @handleSizeChange="handleSizeChange"
+      ></pagination>
+    </div>
     <div></div>
     <input-with-validation v-model="email" label="email" />
     <switch-with-validation v-model="status" />
@@ -13,6 +22,7 @@ export default {
   components: {
     InputWithValidation: () =>
       import('~/components/base/input/InputWithValidation'),
+    Pagination: () => import('~/components/base/Pagination'),
     SwitchWithValidation: () =>
       import('~/components/base/input/SwitchWithValidation'),
     CheckboxWithValidation: () =>
@@ -40,6 +50,21 @@ export default {
     },
     status(newVal) {
       console.log('status', this.status)
+    },
+  },
+  methods: {
+    loadData(page) {
+      // viet api vao day
+    },
+    handleChangePage(val) {
+      console.log('val', val)
+      this.loadData(val)
+    },
+    handleSizeChange(val) {
+      console.log('Page Size Change', val)
+    },
+    totalItem(val) {
+      console.log('Page Size Change', val)
     },
   },
 }
