@@ -1,217 +1,87 @@
 <template>
-  <section
-    class="py-3 lg:bg-red-500 main-header z-40 text-white"
-    :class="{ open: open }"
-  >
-    <div class="mx-auto xl:px-0 max-w-6xl flex-wrap flex justify-between">
-      Header
+  <!--Header-->
+  <header class="bg-transparent sticky-bar mt-4">
+    <div class="container bg-transparent">
+      <nav class="bg-transparent flex justify-between items-center py-3">
+        <a class="text-3xl font-semibold leading-none" href="index.html">
+          <img class="h-10" src="assets/imgs/monst-logo.svg" alt="" />
+        </a>
+        <ul
+          class="hidden lg:flex lg:items-center lg:w-auto lg:space-x-12 hover:text-blueGray-500"
+        >
+          <li
+            v-for="(child, index) in menuConfig"
+            :key="`child${index}`"
+            class="group relative pt-4 pb-4"
+            :class="{ 'has-child': child.submenu?.length > 0 }"
+          >
+            <a
+              :href="child.page"
+              class="text-sm font-semibold text-blueGray-600 hover:text-blueGray-500 cursor-pointer"
+            >
+              {{ child.title }}
+            </a>
+            <ul v-if="child.submenu" class="drop-down-menu min-w-200">
+              <li v-for="(sub, x) in child.submenu" :key="`sub${x}`">
+                <a
+                  href="index.html"
+                  class="menu-sub-item text-sm text-blueGray-600 hover:text-blueGray-500"
+                  >{{ sub.title }}</a
+                >
+              </li>
+            </ul>
+          </li>
+        </ul>
+        <div class="hidden lg:block">
+          <a class="btn-accent hover-up-2" href="login.html">Log In</a>
+          <a class="btn-primary hover-up-2" href="signup.html">Sign Up</a>
+        </div>
+        <div class="lg:hidden">
+          <button
+            class="navbar-burger flex items-center py-2 px-3 text-blue-500 hover:text-blue-700 rounded border border-blue-200 hover:border-blue-300"
+          >
+            <svg
+              class="fill-current h-4 w-4"
+              viewbox="0 0 20 20"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <title>Mobile menu</title>
+              <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"></path>
+            </svg>
+          </button>
+        </div>
+      </nav>
     </div>
-  </section>
+  </header>
 </template>
 <script>
+import { cloneDeep } from 'lodash'
+import menuConfig from '~/constants/MenuConfig'
 export default {
-  name: 'MainHeader',
-  directives: {
-    'click-outside': {
-      bind(el, binding, vNode) {
-        // Provided expression must evaluate to a function.
-        if (typeof binding.value !== 'function') {
-          const compName = vNode.context.name
-          let warn = `[Vue-click-outside:] provided expression '${binding.expression}' is not a function, but has to be`
-          if (compName) {
-            // eslint-disable-next-line no-unused-vars
-            warn += `Found in component '${compName}'`
-          }
-        }
-        // Define Handler and cache it on the element
-        const bubble = binding.modifiers.bubble
-        const handler = (e) => {
-          if (bubble || (!el.contains(e.target) && el !== e.target)) {
-            binding.value(e)
-          }
-        }
-        el.__vueClickOutside__ = handler
-        // add Event Listeners
-        document.addEventListener('click', handler)
-      },
-      unbind(el, binding) {
-        // Remove Event Listeners
-        document.removeEventListener('click', el.__vueClickOutside__)
-        el.__vueClickOutside__ = null
-      },
-    },
-  },
   data() {
     return {
-      menu: [
-        {
-          title: 'Điều khoản sử dụng',
-          path: '/dieu-khoan-su-dung',
-          name: 'termofuse',
-        },
-        {
-          title: 'Chính sách bảo mật',
-          path: '/chinh-sach-bao-mat',
-          name: 'privacy-policy',
-        },
-        // { title: 'Danh mục', path: '/danh-muc', name: 'field' },
-        // {
-        //   title: 'Danh sách bài học',
-        //   path: '/danh-sach-bai-hoc',
-        //   name: 'topic',
-        // },
-        {
-          title: 'Chỉnh sửa thông tin',
-          path: '/trang-ca-nhan',
-          name: 'profile',
-          mobile: true,
-        },
-        {
-          title: 'Kích hoạt tài khoản',
-          path: '/kich-hoat-tai-khoan',
-          name: 'activate-account',
-          mobile: true,
-        },
-        {
-          title: 'Lịch sử giao dịch',
-          path: '/lich-su-giao-dich',
-          name: 'history',
-          mobile: true,
-        },
-        {
-          title: 'Đổi mật khẩu',
-          path: '/doi-mat-khau',
-          name: 'change-password',
-          mobile: true,
-        },
-      ],
-      open: false,
-      pages: ['/'],
-      showInfo: false,
+      menuConfig: cloneDeep(menuConfig),
     }
   },
   computed: {
-    nameRoute() {
-      return this.$route.name
+    menuToDisplay() {
+      return this.getDisplayMenus(this.menuConfig)
     },
   },
+  mounted() {
+    console.log(this.menuConfig)
+  },
   methods: {
-    logout() {
-      this.$auth.logout()
-    },
-    async loginFacebook() {
-      await this.$auth.loginWith('facebook')
-    },
-    async loginGoogle() {
-      await this.$auth.loginWith('google')
-    },
-    outside(e) {
-      if (this.showInfo === true) {
-        this.showInfo = false
-      }
-    },
-    openShowInfo() {
-      if (this.showInfo === false) {
-        setTimeout(() => {
-          this.showInfo = true
-        }, 100)
-      }
+    getDisplayMenus(menus) {
+      return menus.filter((item) => {
+        if (item.submenu) {
+          item.submenu = this.getDisplayMenus(item.submenu)
+          return item.submenu.length > 0
+        } else {
+          return this.$canPermission(item.permission)
+        }
+      })
     },
   },
 }
 </script>
-<style lang="scss">
-.main-header {
-  position: sticky;
-  top: 0;
-  background-color: #070816;
-  ul {
-    background-color: rgba(7, 8, 22, 0.8);
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-  }
-  input:focus {
-    outline: none;
-  }
-  .menu-open {
-    transition: 0.55s all ease-out;
-    cursor: pointer;
-
-    &.open {
-      background: transparent;
-      -webkit-transition: all 0.8s ease-in-out;
-      transition: 0.55s all ease-out;
-      transform: rotate(360deg);
-    }
-  }
-  .info-show {
-    width: 300px;
-    // height: 142px;
-    position: absolute;
-    top: 70px;
-    // box-shadow: 0px -1px 4px rgba(255, 255, 255, 0.15);
-    border-radius: 4px;
-    background-color: black;
-    right: 0px;
-    border: solid 1px rgb(65, 57, 57);
-  }
-  .triangle-with-shadow {
-    width: 15px;
-    height: 15px;
-    position: absolute;
-    right: 45px;
-    bottom: 100%;
-    overflow: hidden;
-  }
-
-  .triangle-with-shadow:after {
-    content: '';
-    width: 15px;
-    height: 15px;
-    position: absolute;
-    transform: rotate(45deg);
-    bottom: -9px;
-    /* right: 18px; */
-    border: solid 1px rgb(65, 57, 57);
-    background-color: black;
-    // box-shadow: 0px -1px 4px rgba(255, 255, 255, 0.15);
-  }
-  @media (max-width: 1023px) {
-    .main-header {
-      background-color: red;
-    }
-    .menu-items {
-      display: block;
-      visibility: hidden;
-      height: 100vh;
-      width: 100vw;
-      position: fixed;
-      top: 0;
-      left: 0;
-      opacity: 1;
-      margin-top: 69.45px;
-      z-index: 99;
-      &.open {
-        visibility: visible;
-        display: block;
-      }
-
-      ul {
-        display: block !important;
-        height: 100%;
-        transition: 0.3s all ease-out;
-        transform: translateX(100%);
-        li {
-          width: 100%;
-          float: none;
-        }
-      }
-      .open {
-        transform: translateX(0%);
-      }
-    }
-  }
-}
-</style>
