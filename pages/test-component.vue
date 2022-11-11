@@ -83,7 +83,7 @@
 </template>
 <script>
 export default {
-  name: 'Login',
+  name: 'testcomponent',
   components: {
     InputWithValidation: () =>
       import('~/components/base/input/InputWithValidation'),

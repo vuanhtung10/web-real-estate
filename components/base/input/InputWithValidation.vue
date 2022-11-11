@@ -59,5 +59,9 @@ export default {
     padding-right: 0px;
     font-weight: 600;
   }
+  .el-input__inner::placeholder {
+    color: #000;
+    opacity: 0.4;
+  }
 }
 </style>
