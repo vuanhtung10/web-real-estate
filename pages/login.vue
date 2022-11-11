@@ -125,29 +125,32 @@
                   </div>
                 </div>
               </div>
-              <button
+              <base-button
+                type="submit"
                 class="transition duration-300 ease-in-out transform hover:-translate-y-1 block w-full p-4 text-center text-xs text-white font-semibold leading-none bg-blue-500 hover:bg-blue-700 rounded"
               >
                 Đăng nhập
-              </button>
+              </base-button>
             </form>
             <p class="my-6 text-xs text-blueGray-400 text-center font-semibold">
               hoặc
             </p>
-            <button
-              class="transition duration-300 ease-in-out transform hover:-translate-y-1 flex items-center w-full px-4 py-3 mb-2 text-xs text-blueGray-500 font-semibold leading-none border border-gray-200 hover:bg-blueGray-50 rounded"
+            <base-button
+              class="bg-transparent transition duration-300 ease-in-out transform hover:-translate-y-1 flex items-center w-full px-4 py-3 mb-2 text-xs text-black font-semibold leading-none border border-gray-200 hover:bg-blueGray-50 rounded"
               href="#"
+              @click.native="loginFacebook"
             >
               <img class="h-6 pr-10" :src="FacebookSign" />
-              <span>Đăng nhập với Facebook</span>
-            </button>
-            <button
-              class="transition duration-300 ease-in-out transform hover:-translate-y-1 flex items-center px-4 py-3 w-full text-xs text-blueGray-500 font-semibold leading-none border border-gray-200 hover:bg-blueGray-50 rounded"
+              <span class="text-gray-500">Đăng nhập với Facebook</span>
+            </base-button>
+            <base-button
+              class="bg-transparent transition duration-300 ease-in-out transform hover:-translate-y-1 flex items-center px-4 py-3 w-full text-xs text-gray-500 font-semibold leading-none border border-gray-200 hover:bg-blueGray-50 rounded"
               href="#"
+              @click.native="loginGoogle"
             >
               <img class="h-6 pr-10" :src="GoogleSign" />
               <span>Đăng nhập với Google</span>
-            </button>
+            </base-button>
             <div class="w-full mt-12 mx-auto text-center">
               <p class="text-black text-base">
                 Bạn chưa có tài khoản?
@@ -169,12 +172,12 @@
 <script>
 import FacebookSign from 'assets/imgs/logos/facebook-sign.png'
 import GoogleSign from 'assets/imgs/logos/google-sign.png'
-import LoginPicture from 'assets/imgs/building-2b.png'
+import LoginPicture from 'assets/imgs/building.png'
 import { validateEmail } from '~/utils/validate'
 export default {
   name: 'Login',
   components: {
-    // BaseButton: () => import('~/components/base/BaseButton'),
+    BaseButton: () => import('~/components/base/BaseButton'),
     InputWithValidation: () =>
       import('~/components/base/input/InputWithValidation'),
   },
