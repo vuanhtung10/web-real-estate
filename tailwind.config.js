@@ -1,6 +1,7 @@
 module.exports = {
   purge: [
     './components/**/*.{vue,js}',
+    './modules/**/*.{vue,js}',
     './layouts/**/*.vue',
     './pages/**/*.vue',
     './plugins/**/*.{js,ts}',
@@ -82,5 +83,5 @@ module.exports = {
   variants: {
     extend: {},
   },
-  plugins: [],
+  plugins: [require('@tailwindcss/line-clamp')],
 }

@@ -3,7 +3,8 @@ html, body{
 }
 @import 'components/form-custom';
 @import 'editor';
-@import 'tailwind-built';
+@import 'custom';
+@import 'tailwind-build';
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

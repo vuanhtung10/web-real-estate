@@ -85,8 +85,8 @@ export default {
   },
 
   axios: {
-    baseURL: 'https://api.cuongtavan.net',
-    // baseURL: 'http://localhost:8000',
+    // baseURL: 'https://api.cuongtavan.net',
+    baseURL: 'http://localhost:8000',
   },
 
   env: {
