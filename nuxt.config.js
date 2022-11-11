@@ -56,7 +56,7 @@ export default {
             propertyName: 'token',
           },
           logout: { url: '/user/logout', method: 'post' },
-          user: { url: '/user/me', method: 'get', propertyName: '' },
+          user: { url: '/user/me', method: 'post', propertyName: '' },
         },
       },
       // facebook: {
