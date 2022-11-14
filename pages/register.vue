@@ -119,7 +119,10 @@
           <p v-if="errors.confirmPassword" class="text-red-500 mt-3">
             {{ errors.confirmPassword }}
           </p>
-          <base-button class="w-full mt-8 md:mt-10 block" type="submit">
+          <base-button
+            class="w-full mt-8 md:mt-10 block bg-[rgba(59, 130, 246)]"
+            type="submit"
+          >
             Đăng ký
           </base-button>
           <p v-if="error" class="text-red-500 mt-3 text-center">
