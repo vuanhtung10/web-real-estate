@@ -98,7 +98,6 @@ export default {
     CheckboxWithValidation: () =>
       import('~/components/base/input/CheckboxWithValidation'),
     // FilterCheckBox: () => import('~/components/base/FilterCheckBox'),
-    Paginationcopy: () => import('~/components/base/Pagination_copy.vue'),
   },
   layout: 'fullscreen',
   data() {

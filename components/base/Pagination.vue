@@ -1,12 +1,14 @@
 <template>
   <el-pagination
+    v-if="!loading && totalItem > 0"
+    :key="keyPagination"
     class="pagination-custom"
     background
-    layout="sizes, prev, pager, next"
-    :page-sizes="[10, 15, 20, 25, 30]"
-    :total="20"
+    layout=" prev, pager, next"
+    :total="totalItem"
     :current-page.sync="currentPage"
     :page-size.sync="pageSize"
+    :default-current-page="currentPage"
     @current-change="handleCurrentChange"
     @size-change="handleSizeChange"
   >
@@ -26,15 +28,24 @@ export default {
   },
   props: {
     totalItem: {
-      type: Function,
-      default: null,
+      type: Number,
+      default: 100,
+    },
+    pageSize: {
+      type: Number,
+      default: 10,
+    },
+    start: {
+      type: Number,
+      default: 1,
     },
   },
   data() {
     return {
       currentPage: 1,
-      pageSize: 5,
       newItem: '',
+      keyPagination: 0,
+      loading: true,
     }
   },
   watch: {
@@ -42,13 +53,18 @@ export default {
       this.$emit('handleSizeChange', newval)
     },
   },
+  mounted() {
+    if (this.start) {
+      this.currentPage = this.start
+      this.keyPagination = +1
+    }
+    this.loading = false
+  },
   methods: {
     handleCurrentChange(val) {
-      console.log('here')
       this.$emit('handleChangePage', val)
     },
     handleSizeChange(val) {
-      console.log('here')
       this.$emit('handleSizeChange', val)
     },
   },

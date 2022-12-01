@@ -7,7 +7,9 @@ import index from '~/pages/index'
 import login from '~/pages/login'
 import register from '~/pages/register'
 import testComponent from '~/pages/test-component'
-import ngoctest from '~/pages/ngoctest'
+import article from '~/pages/article'
+import articleDetail from '~/pages/articleDetail'
+import articleCreate from '~/pages/articleCreate'
 
 Vue.use(Router)
 
@@ -55,9 +57,20 @@ export function createRouter() {
         component: register,
       },
       {
-        path: '/ngoc-test',
-        name: 'ngoctest',
-        component: ngoctest,
+        path: '/article/',
+        name: 'article',
+        component: article,
+      },
+
+      {
+        path: '/article/:slug',
+        name: 'articleDetail',
+        component: articleDetail,
+      },
+      {
+        path: '/article/create',
+        name: 'articleCreate',
+        component: articleCreate,
       },
     ],
   })
