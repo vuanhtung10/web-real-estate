@@ -10,7 +10,7 @@
           class="w-full form-custom mx-auto mt-6 md:mt-10"
           @submit="checkForm"
         >
-          <div class="relative w-full">
+          <div class="relative w-full mt-4">
             <input-with-validation
               v-model="fullname"
               type="text"
@@ -77,7 +77,7 @@
               class="w-full rounded-md pl-12 pr-6 h-12"
             />
             <div
-              class="float-left mb-8 wow animate__animated animate__fadeIn animated"
+              class="float-left mt-4 mb-8 wow animate__animated animate__fadeIn animated"
               data-wow-delay=".1s"
             >
               <label class="inline-flex text-xs">
@@ -87,13 +87,13 @@
                   :checked="isChecked"
                 />
                 <span class="ml-2"
-                  >I agree to
+                  >Tôi đồng ý với
                   <a class="underline hover:text-blueGray-500" href="#"
-                    >Police privacy</a
+                    >Chính sách</a
                   >
-                  and
+                  và
                   <a class="underline hover:text-blueGray-500" href="#"
-                    >Terms of Use</a
+                    >Điều khoản sử dụng</a
                   ></span
                 >
               </label>
@@ -120,7 +120,7 @@
             {{ errors.confirmPassword }}
           </p>
           <base-button
-            class="w-full mt-8 md:mt-10 block bg-[rgba(59, 130, 246)]"
+            class="bg-blue-500 w-full mt-8 md:mt-10 block"
             type="submit"
           >
             Đăng ký
@@ -130,25 +130,25 @@
           </p>
         </form>
         <p class="my-6 text-xs text-blueGray-400 text-center font-semibold">
-          or continue with
+          Hoặc tiếp tục với
         </p>
         <button
           class="transition duration-300 ease-in-out transform hover:-translate-y-1 flex items-center w-full px-4 py-3 mb-2 text-xs text-blueGray-500 font-semibold leading-none border border-gray-200 hover:bg-blueGray-50 rounded"
           href="#"
         >
           <img class="h-6 pr-10" src="../assets/imgs/facebook-sign.svg" />
-          <span>Sign Up with Facebook</span>
+          <span>Đăng Ký với Facebook</span>
         </button>
         <button
           class="transition duration-300 ease-in-out transform hover:-translate-y-1 flex items-center px-4 py-3 w-full text-xs text-blueGray-500 font-semibold leading-none border border-gray-200 hover:bg-blueGray-50 rounded"
           href="#"
         >
           <img class="h-6 pr-10" src="../assets/imgs/google-sign.svg" />
-          <span>Sign Up with Google</span>
+          <span>Đăng Ký với Google</span>
         </button>
         <p class="text-center mt-8 md:mt-16">
           Bạn đã có tài khoản?
-          <nuxt-link to="login" class="text-primary">Đăng nhập ngay</nuxt-link>
+          <nuxt-link to="login" class="text-blue-600">Đăng nhập ngay</nuxt-link>
         </p>
       </div>
     </div>

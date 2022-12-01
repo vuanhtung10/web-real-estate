@@ -1,5 +1,10 @@
 <template>
-  <div class="flex mb-6 px-4 bg-blueGray-50 rounded border border-gray-200">
+  <div
+    class="flex grow px-4 bg-blueGray-50 rounded border border-gray-200 items-center justify-center"
+  >
+    <div v-if="position === 'preffix'" class="mr-2">
+      <slot></slot>
+    </div>
     <el-input
       ref="input"
       v-model="innerValue"
@@ -7,7 +12,7 @@
       :type="type"
       class="input-box"
     />
-    <slot></slot>
+    <slot v-if="position === 'suffix'"></slot>
   </div>
 </template>
 <script>
@@ -27,6 +32,7 @@ export default {
     label: { type: String, default: '' },
     placeholder: { type: String, default: '' },
     type: { type: String, default: 'text' },
+    position: { type: String, default: 'suffix' },
   },
   data() {
     return {

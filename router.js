@@ -8,6 +8,7 @@ import login from '~/pages/login'
 import register from '~/pages/register'
 import testComponent from '~/pages/test-component'
 import ngoctest from '~/pages/ngoctest'
+
 Vue.use(Router)
 
 // function interopDefault(promise) {

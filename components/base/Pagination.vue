@@ -4,7 +4,7 @@
     background
     layout="sizes, prev, pager, next"
     :page-sizes="[10, 15, 20, 25, 30]"
-    :total="120"
+    :total="20"
     :current-page.sync="currentPage"
     :page-size.sync="pageSize"
     @current-change="handleCurrentChange"
@@ -33,7 +33,7 @@ export default {
   data() {
     return {
       currentPage: 1,
-      pageSize: 15,
+      pageSize: 5,
       newItem: '',
     }
   },

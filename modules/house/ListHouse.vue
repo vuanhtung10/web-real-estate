@@ -8,10 +8,7 @@
       >
         <nuxt-link :to="{ name: 'index' }">
           <div class="relative w-full pt-[100%]">
-            <img
-              class="absolute w-full h-full object-cover inset-0"
-              :src="item.img"
-            />
+            <img class="absolute h-full object-cover inset-0" :src="item.img" />
             <div
               class="bg-auto absolute top-3 left-3 z-10 bg-no-repeat flex justify-center item-center w-6 h-5"
               :style="{ backgroundImage: `url(${iconCamera})` }"
@@ -33,6 +30,7 @@
         </nuxt-link>
       </div>
     </div>
+    <Pagination />
   </div>
 </template>
 <script>
@@ -82,6 +80,9 @@ const listHouse = [
   },
 ]
 export default {
+  components: {
+    Pagination: () => import('~/components/base/Pagination.vue'),
+  },
   data() {
     return {
       listHouse: cloneDeep(listHouse),

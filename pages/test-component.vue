@@ -79,11 +79,16 @@
     <switch-with-validation v-model="status" />
     <checkbox-with-validation v-model="value" :value-options="listOptions" />
     <!-- <filter-check-box label="Size" class="w-[290px]" /> -->
+    <paginationcopy
+      :total-item="totalItem"
+      @handleChangePage="handleChangePage"
+      @handleSizeChange="handleSizeChange"
+    ></paginationcopy>
   </div>
 </template>
 <script>
 export default {
-  name: 'testcomponent',
+  name: 'Testcomponent',
   components: {
     InputWithValidation: () =>
       import('~/components/base/input/InputWithValidation'),
@@ -93,6 +98,7 @@ export default {
     CheckboxWithValidation: () =>
       import('~/components/base/input/CheckboxWithValidation'),
     // FilterCheckBox: () => import('~/components/base/FilterCheckBox'),
+    Paginationcopy: () => import('~/components/base/Pagination_copy.vue'),
   },
   layout: 'fullscreen',
   data() {
