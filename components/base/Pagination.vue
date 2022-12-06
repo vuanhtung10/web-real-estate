@@ -1,12 +1,12 @@
 <template>
   <el-pagination
     class="pagination-custom"
+    primary
     background
-    layout="sizes, prev, pager, next"
-    :page-sizes="[10, 15, 20, 25, 30]"
-    :total="120"
+    layout="prev, pager, next"
+    :total="totalItem"
     :current-page.sync="currentPage"
-    :page-size.sync="pageSize"
+    :page-size="pageSize"
     @current-change="handleCurrentChange"
     @size-change="handleSizeChange"
   >
@@ -26,21 +26,29 @@ export default {
   },
   props: {
     totalItem: {
-      type: Function,
-      default: null,
+      type: Number,
+      default: 100,
+    },
+    pageSize: {
+      type: Number,
+      default: 5,
     },
   },
   data() {
     return {
       currentPage: 1,
-      pageSize: 15,
       newItem: '',
+      loading: false,
     }
   },
   watch: {
     newItem(newval) {
       this.$emit('handleSizeChange', newval)
     },
+  },
+  mounted() {
+    console.log('totalItem', this.totalItem)
+    console.log('pageSize', this.pageSize)
   },
   methods: {
     handleCurrentChange(val) {
@@ -76,13 +84,13 @@ export default {
       justify-content: center;
       align-items: center;
       color: black;
-      border: solid 1px black;
+      // border: solid 1px black;
       &:hover {
-        background-color: black !important;
+        background-color: rgb(59 130 246) !important;
         color: white !important;
       }
       &.active {
-        background-color: black !important;
+        background-color: rgb(96 165 250) !important;
         color: white !important;
       }
     }
@@ -105,7 +113,7 @@ export default {
     background-color: white !important;
     // border: solid 1px black;
     &:hover {
-      background-color: black !important;
+      background-color: rgb(59 130 246) !important;
       color: white !important;
     }
   }

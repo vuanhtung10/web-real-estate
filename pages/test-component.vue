@@ -79,6 +79,9 @@
     <switch-with-validation v-model="status" />
     <checkbox-with-validation v-model="value" :value-options="listOptions" />
     <!-- <filter-check-box label="Size" class="w-[290px]" /> -->
+    <div>
+      <list-article />
+    </div>
   </div>
 </template>
 <script>
@@ -93,6 +96,7 @@ export default {
     CheckboxWithValidation: () =>
       import('~/components/base/input/CheckboxWithValidation'),
     // FilterCheckBox: () => import('~/components/base/FilterCheckBox'),
+    // ScrollUp: () => import('~/components/base/ScrollUp'),
   },
   layout: 'fullscreen',
   data() {

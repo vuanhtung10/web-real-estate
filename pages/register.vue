@@ -1,6 +1,6 @@
 <template>
   <div class="bg-odd-bg w-full md:w-1/2 flex items-center justify-center">
-    <div class="w-460px px-4 text-white">
+    <div class="w-460px px-4 text-black">
       <img
         v-lazy="`/images/logo/celebrity.svg`"
         width="52"
@@ -101,7 +101,11 @@
         <p v-if="errors.confirmPassword" class="text-red-500 mt-3">
           {{ errors.confirmPassword }}
         </p>
-        <base-button class="w-full mt-8 md:mt-10 block" type="submit">
+        <base-button
+          class="w-full mt-8 md:mt-10 block"
+          type="submit"
+          @click="register"
+        >
           Đăng ký
         </base-button>
         <p v-if="error" class="text-red-500 mt-3 text-center">
@@ -181,11 +185,17 @@ export default {
           email: this.email,
           password: this.password,
         }
-        const { data } = await this.$axios.post('user/register', form)
+        const { data } = await this.$axios.post('user/', form)
         if (data.errors && data.errors[0] === 'ERROR_EMAIL_IS_EXIST') {
           this.error = 'Email đăng nhập đã tồn tại'
         } else {
-          this.$auth.setUserToken(data.token)
+          // this.$auth.setUserToken(data.token)
+          await this.$auth.loginWith('local', {
+            data: {
+              email: this.email,
+              password: this.password,
+            },
+          })
           this.$router.push('/')
         }
       } catch (e) {

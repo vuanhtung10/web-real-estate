@@ -162,7 +162,7 @@
           </li>
         </ul>
         <div class="hidden lg:block">
-          <a class="btn-accent hover-up-2" href="login.html">Log In</a>
+          <a class="btn-accent hover-up-2" href="login">Log In</a>
           <a class="btn-primary hover-up-2" href="signup.html">Sign Up</a>
         </div>
         <div class="lg:hidden">
