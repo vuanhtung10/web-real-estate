@@ -33,8 +33,12 @@
           </li>
         </ul>
         <div class="hidden lg:block">
-          <a class="btn-accent hover-up-2" :href="Login">Log In</a>
-          <a class="btn-primary hover-up-2" href="signup.html">Sign Up</a>
+          <nuxt-link :to="{ name: 'login' }" class="btn-accent hover-up-2"
+            >Log In</nuxt-link
+          >
+          <nuxt-link :to="{ name: 'register' }" class="btn-primary hover-up-2"
+            >Sign Up</nuxt-link
+          >
         </div>
         <div class="lg:hidden">
           <button

@@ -1,5 +1,7 @@
 <template>
   <el-pagination
+    v-if="!loading && totalItem > 0"
+    :key="keyPagination"
     class="pagination-custom"
     primary
     background
@@ -52,11 +54,9 @@ export default {
   },
   methods: {
     handleCurrentChange(val) {
-      console.log('here')
       this.$emit('handleChangePage', val)
     },
     handleSizeChange(val) {
-      console.log('here')
       this.$emit('handleSizeChange', val)
     },
   },

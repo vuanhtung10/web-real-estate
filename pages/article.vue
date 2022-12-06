@@ -62,9 +62,6 @@
 <script>
 export default {
   components: {
-    InputWithValidation: () =>
-      import('~/components/base/input/InputWithValidation'),
-    BaseButton: () => import('~/components/base/BaseButton'),
     ListArticle: () => import('~/modules/article/ListArticle'),
     ListTopArticle: () => import('~/modules/article/ListTopArticle'),
   },

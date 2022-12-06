@@ -6,11 +6,11 @@
         :key="`house${index}`"
         class="p-3 shadow-hover"
       >
-        <nuxt-link :to="{ name: 'index' }">
+        <nuxt-link :to="{ name: 'articleDetail', params: { slug: item.slug } }">
           <div class="relative w-full pt-[100%]">
             <img
-              class="absolute w-full h-full object-cover inset-0"
-              :src="item.img"
+              class="absolute h-full object-cover inset-0"
+              :src="item.thumbnail"
             />
             <div
               class="bg-auto absolute top-3 left-3 z-10 bg-no-repeat flex justify-center item-center w-6 h-5"
@@ -33,60 +33,75 @@
         </nuxt-link>
       </div>
     </div>
+    <Pagination
+      :total-item="totalItem"
+      :page-size="limit"
+      :start="start"
+      class="float-right pb-20"
+      @handleChangePage="handleChangePage"
+    />
+    <Loading :loading="loading" />
   </div>
 </template>
 <script>
-import { cloneDeep } from 'lodash'
 import iconCamera from 'assets/imgs/number-image.svg'
-const listHouse = [
-  {
-    img: require('~/assets/imgs/anh-chu-meo-de-thuong_020434248.jpg'),
-    description:
-      'NHÀ 360 XÃ ĐÀN, S=33M, 6 TẦNG, MT= 3M, GIÁ 3.5 TỶ NHÀ 360 XÃ ĐÀN, S=33M, 6 TẦNG, MT= 3M, GIÁ 3.5 TỶNHÀ 360 XÃ ĐÀN, S=33M, 6 TẦNG, MT= 3M, GIÁ 3.5 TỶNHÀ 360 XÃ ĐÀN, S=33M, 6 TẦNG, MT= 3M, GIÁ 3.5 TỶ',
-    name: 'House 1',
-    area: 33,
-    numbersRoom: 4,
-    price: 3.5,
-  },
-  {
-    img: require('~/assets/imgs/anh-chu-meo-de-thuong_020434248.jpg'),
-    description: '',
-    name: 'House 2',
-    area: '',
-    numbersRoom: '',
-    price: '',
-  },
-  {
-    img: require('~/assets/imgs/anh-chu-meo-de-thuong_020434248.jpg'),
-    description: '',
-    name: 'House 3',
-    area: '',
-    numbersRoom: '',
-    price: '',
-  },
-  {
-    img: require('~/assets/imgs/anh-chu-meo-de-thuong_020434248.jpg'),
-    description: '',
-    name: 'House 4',
-    area: '',
-    numbersRoom: '',
-    price: '',
-  },
-  {
-    img: require('~/assets/imgs/anh-chu-meo-de-thuong_020434248.jpg'),
-    description: '',
-    name: 'House 5',
-    area: '',
-    numbersRoom: '',
-    price: '',
-  },
-]
 export default {
+  components: {
+    Pagination: () => import('~/components/base/Pagination.vue'),
+    Loading: () => import('~/components/base/loading.vue'),
+  },
   data() {
     return {
-      listHouse: cloneDeep(listHouse),
+      listHouse: [],
       iconCamera,
+      totalItem: 0,
+      start: 1,
+      limit: 4,
+      loading: false,
     }
+  },
+  watch: {
+    '$route.query.page'(search) {
+      if (
+        this.$route.query.page &&
+        Number.isInteger(parseInt(this.$route.query.page)) &&
+        parseInt(this.$route.query.page)
+      ) {
+        this.start = parseInt(this.$route.query.page)
+      }
+      this.loadData()
+    },
+  },
+  mounted() {
+    if (
+      this.$route.query.page &&
+      Number.isInteger(parseInt(this.$route.query.page)) &&
+      parseInt(this.$route.query.page)
+    ) {
+      this.start = parseInt(this.$route.query.page)
+      console.log('tung')
+    }
+    this.loadData()
+  },
+  methods: {
+    async loadData() {
+      this.loading = true
+      const { data } = await this.$axios.get(
+        `/article?start=${this.start - 1}&limit=${this.limit}`
+      )
+      // setTimeout(() => {
+      //   this.loading = false
+      // }, 2000)
+      this.loading = false
+      this.listHouse = data.data
+      this.totalItem = data.total
+    },
+    handleChangePage(val) {
+      // console.log('val la:', val)
+      // this.start = val - 1
+      // this.loadData(val)
+      this.$router.replace({ path: 'article', query: { page: val } })
+    },
   },
 }
 </script>

@@ -1,4 +1,3 @@
-/* eslint-disable import/no-duplicates */
 import Vue from 'vue'
 import Router from 'vue-router'
 import facebook from '~/pages/auth/facebook'
@@ -7,7 +6,7 @@ import index from '~/pages/index'
 import login from '~/pages/login'
 import register from '~/pages/register'
 import testComponent from '~/pages/test-component'
-import ngoctest from '~/pages/ngoctest'
+import articleCreate from '~/pages/articleCreate'
 import article from '~/pages/article'
 import articleDetail from '~/pages/articleDetail'
 import page1 from '~/pages/page1'
@@ -57,9 +56,20 @@ export function createRouter() {
         component: register,
       },
       {
-        path: '/ngoc-test',
-        name: 'ngoctest',
-        component: ngoctest,
+        path: '/article/',
+        name: 'article',
+        component: article,
+      },
+
+      {
+        path: '/article/:slug',
+        name: 'articleDetail',
+        component: articleDetail,
+      },
+      {
+        path: '/article/create',
+        name: 'articleCreate',
+        component: articleCreate,
       },
       {
         path: '/article',
