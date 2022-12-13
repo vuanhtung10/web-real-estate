@@ -3,12 +3,12 @@
     v-if="!loading && totalItem > 0"
     :key="keyPagination"
     class="pagination-custom"
+    primary
     background
-    layout=" prev, pager, next"
+    layout="prev, pager, next"
     :total="totalItem"
     :current-page.sync="currentPage"
-    :page-size.sync="pageSize"
-    :default-current-page="currentPage"
+    :page-size="pageSize"
     @current-change="handleCurrentChange"
     @size-change="handleSizeChange"
   >
@@ -33,19 +33,14 @@ export default {
     },
     pageSize: {
       type: Number,
-      default: 10,
-    },
-    start: {
-      type: Number,
-      default: 1,
+      default: 5,
     },
   },
   data() {
     return {
       currentPage: 1,
       newItem: '',
-      keyPagination: 0,
-      loading: true,
+      loading: false,
     }
   },
   watch: {
@@ -54,11 +49,8 @@ export default {
     },
   },
   mounted() {
-    if (this.start) {
-      this.currentPage = this.start
-      this.keyPagination = +1
-    }
-    this.loading = false
+    console.log('totalItem', this.totalItem)
+    console.log('pageSize', this.pageSize)
   },
   methods: {
     handleCurrentChange(val) {
@@ -92,13 +84,13 @@ export default {
       justify-content: center;
       align-items: center;
       color: black;
-      border: solid 1px black;
+      // border: solid 1px black;
       &:hover {
-        background-color: black !important;
+        background-color: rgb(59 130 246) !important;
         color: white !important;
       }
       &.active {
-        background-color: black !important;
+        background-color: rgb(96 165 250) !important;
         color: white !important;
       }
     }
@@ -121,7 +113,7 @@ export default {
     background-color: white !important;
     // border: solid 1px black;
     &:hover {
-      background-color: black !important;
+      background-color: rgb(59 130 246) !important;
       color: white !important;
     }
   }

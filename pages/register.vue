@@ -1,10 +1,34 @@
 <template>
-  <div class="bg-blueGray-50">
-    <div class="flex max-w-md mx-auto flex-col text-center">
-      <div class="mt-12 mb-8 p-8 bg-white rounded shadow">
-        <p class="text-2xl text-center mt-6 md:mt-8">Đăng kí</p>
-        <p class="text-sm text-opacity-60 text-center w-327px mx-auto mt-2">
-          Vui lòng cung cấp thông tin cá nhân để tạo tài khoản
+  <div class="bg-odd-bg w-full md:w-1/2 flex items-center justify-center">
+    <div class="w-460px px-4 text-black">
+      <img
+        v-lazy="`/images/logo/celebrity.svg`"
+        width="52"
+        height="75"
+        class="mx-auto"
+      />
+      <p class="text-2xl text-center mt-6 md:mt-8">Đăng kí</p>
+      <p
+        class="text-sm text-white text-opacity-60 text-center w-327px mx-auto mt-2"
+      >
+        Vui lòng cung cấp thông tin cá nhân để tạo tài khoản nhân
+      </p>
+      <form
+        class="w-full form-custom mx-auto mt-6 md:mt-10"
+        @submit="checkForm"
+      >
+        <div class="relative w-full">
+          <input
+            v-model="fullname"
+            type="text"
+            placeholder="Họ tên"
+            :autocomplete="'disabled'"
+            class="w-full rounded-md pl-12 pr-6 h-12"
+          />
+          <img src="/images/icon/person.svg" class="absolute left-4 top-3.5" />
+        </div>
+        <p v-if="errors.fullname" class="text-red-500 mt-3">
+          {{ errors.fullname }}
         </p>
         <form
           class="w-full form-custom mx-auto mt-6 md:mt-10"
@@ -150,7 +174,50 @@
           Bạn đã có tài khoản?
           <nuxt-link to="login" class="text-blue-600">Đăng nhập ngay</nuxt-link>
         </p>
-      </div>
+        <div class="relative w-full mt-4">
+          <input
+            v-model="confirmPassword"
+            :type="[showConfirmPassword ? 'text' : 'password']"
+            placeholder="Nhập lại mật khẩu"
+            :autocomplete="'disabled'"
+            class="w-full rounded-md pl-12 pr-6 h-12"
+          />
+          <img src="/images/icon/key.svg" class="absolute left-4 top-3.5" />
+          <img
+            v-if="!showConfirmPassword"
+            src="/images/icon/eye.svg"
+            class="absolute right-4 top-3 cursor-pointer"
+            width="20"
+            height="20"
+            @click="showConfirmPassword = !showConfirmPassword"
+          />
+          <img
+            v-else
+            src="/images/icon/eye-off.svg"
+            class="absolute right-4 top-3 cursor-pointer"
+            width="20"
+            height="20"
+            @click="showConfirmPassword = !showConfirmPassword"
+          />
+        </div>
+        <p v-if="errors.confirmPassword" class="text-red-500 mt-3">
+          {{ errors.confirmPassword }}
+        </p>
+        <base-button
+          class="w-full mt-8 md:mt-10 block"
+          type="submit"
+          @click="register"
+        >
+          Đăng ký
+        </base-button>
+        <p v-if="error" class="text-red-500 mt-3 text-center">
+          {{ error }}
+        </p>
+      </form>
+      <p class="text-center mt-8 md:mt-16">
+        Bạn đã có tài khoản?
+        <nuxt-link to="login" class="text-primary">Đăng nhập ngay</nuxt-link>
+      </p>
     </div>
   </div>
 </template>
@@ -241,7 +308,13 @@ export default {
         if (data.errors && data.errors[0] === 'ERROR_EMAIL_IS_EXIST') {
           this.error = 'Email đăng nhập đã tồn tại'
         } else {
-          this.$auth.setUserToken(data.token)
+          // this.$auth.setUserToken(data.token)
+          await this.$auth.loginWith('local', {
+            data: {
+              email: this.email,
+              password: this.password,
+            },
+          })
           this.$router.push('/')
         }
       } catch (e) {

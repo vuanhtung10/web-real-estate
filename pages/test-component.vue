@@ -84,28 +84,6 @@
       @handleChangePage="handleChangePage"
       @handleSizeChange="handleSizeChange"
     ></paginationcopy>
-
-    <b-single-image-upload-with-validation
-      v-model="form.thumbnail"
-      label="Thumbnail"
-      placeholder="Thumbnail"
-    />
-
-    <client-only>
-      <b-form-group>
-        <quill-editor
-          v-model="form.content"
-          :required="true"
-          label="Nội dung"
-          placeholder="Nội dung"
-          rules="required"
-          name="content"
-          style="height: 500px"
-        />
-      </b-form-group>
-    </client-only>
-
-    <!-- <Input /> -->
   </div>
 </template>
 <script>
@@ -128,6 +106,7 @@ export default {
     CheckboxWithValidation: () =>
       import('~/components/base/input/CheckboxWithValidation'),
     // FilterCheckBox: () => import('~/components/base/FilterCheckBox'),
+    // ScrollUp: () => import('~/components/base/ScrollUp'),
   },
   layout: 'fullscreen',
   data() {
@@ -148,6 +127,7 @@ export default {
         { text: 'Five', value: 5 },
       ],
       showPassword: false,
+      content: null,
     }
   },
   watch: {
