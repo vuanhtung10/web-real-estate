@@ -82,6 +82,17 @@
     <div>
       <list-article />
     </div>
+    <client-only>
+      <quill-editor
+        v-model="content"
+        :required="true"
+        label="Nội dung"
+        placeholder="Nội dung"
+        rules="required"
+        name="content"
+        style="height: 500px"
+      />
+    </client-only>
   </div>
 </template>
 <script>
@@ -112,6 +123,7 @@ export default {
         { text: 'Five', value: 5 },
       ],
       showPassword: false,
+      content: null,
     }
   },
   watch: {

@@ -9,7 +9,7 @@ import testComponent from '~/pages/test-component'
 import articleCreate from '~/pages/articleCreate'
 import article from '~/pages/article'
 import articleDetail from '~/pages/articleDetail'
-import page1 from '~/pages/page1'
+// import page1 from '~/pages/page1'
 Vue.use(Router)
 
 // function interopDefault(promise) {
@@ -81,11 +81,11 @@ export function createRouter() {
         name: 'articleDetail',
         component: articleDetail,
       },
-      {
-        path: '/article/page1',
-        name: 'page1',
-        component: page1,
-      },
+      // {
+      //   path: '/article/page1',
+      //   name: 'page1',
+      //   component: page1,
+      // },
     ],
   })
 }
