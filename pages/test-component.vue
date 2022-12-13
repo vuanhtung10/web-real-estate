@@ -84,6 +84,17 @@
       @handleChangePage="handleChangePage"
       @handleSizeChange="handleSizeChange"
     ></paginationcopy>
+    <client-only>
+      <quill-editor
+        v-model="content"
+        :required="true"
+        label="Nội dung"
+        placeholder="Nội dung"
+        rules="required"
+        name="content"
+        style="height: 500px"
+      />
+    </client-only>
   </div>
 </template>
 <script>
