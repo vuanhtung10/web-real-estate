@@ -95,8 +95,8 @@
 export default {
   name: 'Testcomponent',
   components: {
-    BSingleImageUploadWithValidation: () =>
-      import('~/components/base/input/BSingleImageUploadWithValidation.vue'),
+    // BSingleImageUploadWithValidation: () =>
+    //   import('~/components/base/input/BSingleImageUploadWithValidation.vue'),
     // Input: () => import('~/components/base/input/input'),
     InputWithValidation: () =>
       import('~/components/base/input/InputWithValidation'),
