@@ -63,7 +63,7 @@ export function createRouter() {
       },
 
       {
-        path: '/article/:slug',
+        path: '/article/detail/:slug',
         name: 'articleDetail',
         component: articleDetail,
       },
