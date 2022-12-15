@@ -10,6 +10,7 @@ import testComponent from '~/pages/test-component'
 import article from '~/pages/article'
 import articleDetail from '~/pages/articleDetail'
 import articleCreate from '~/pages/articleCreate'
+import info from '~/pages/info'
 
 Vue.use(Router)
 
@@ -71,6 +72,11 @@ export function createRouter() {
         path: '/article/create',
         name: 'articleCreate',
         component: articleCreate,
+      },
+      {
+        path: '/info',
+        name: 'info',
+        component: info,
       },
     ],
   })
