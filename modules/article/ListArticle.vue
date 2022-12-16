@@ -1,5 +1,5 @@
 <template>
-  <div class="container w-full mx-auto px-4">
+  <div>
     <div class="flex flex-wrap -mx-3">
       <div
         v-for="(item, index) in listArticle"
@@ -26,14 +26,16 @@
           </div>
         </nuxt-link>
       </div>
+      <div class="w-full flex justify-end">
+        <pagination
+          :total-item="totalItem"
+          :page-size="limit"
+          class="mb-20"
+          @handleChangePage="handleChangePage"
+        ></pagination>
+      </div>
       <loading-overlay :loading="loading" />
     </div>
-    <pagination
-      :total-item="totalItem"
-      :page-size="limit"
-      class="float-right pb-20"
-      @handleChangePage="handleChangePage"
-    ></pagination>
   </div>
 </template>
 <script>

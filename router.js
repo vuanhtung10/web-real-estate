@@ -54,7 +54,7 @@ export function createRouter() {
         component: register,
       },
       {
-        path: '/article/',
+        path: '/tin-tuc/',
         name: 'Tin Tức',
         component: article,
       },

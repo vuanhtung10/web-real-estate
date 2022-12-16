@@ -1,9 +1,9 @@
 <template>
-  <div>
-    <div class="flex flex-col items-center">
+  <div class="container">
+    <div class="max-w-[1140px] mx-auto">
       <div class="w-full mx-auto px-4">
         <h2 class="text-3xl lg:text-4xl mb-8 font-bold font-heading">
-          {{ title }}
+          Tin tức
         </h2>
       </div>
       <list-top-article />
@@ -24,11 +24,6 @@
             All your information is completely confidential
           </p>
           <div class="flex flex-wrap max-w-lg mx-auto space-x-4">
-            <!-- <input-with-validation
-                class="w-full pl-3 py-4 text-xs text-white placeholder-white font-semibold leading-none bg-blue-500 outline-none"
-                type="text"
-                placeholder="Type your e-mail"
-              /> -->
             <input-with-validation
               v-model="email"
               type="text"
@@ -53,7 +48,7 @@
               class="w-full md:w-auto py-4 px-8 text-xs text-white text-blue-800 hover:text-white font-semibold leading-none border border-blue-300 hover:border-blue-300 bg-white hover:bg-blue-500 rounded transition duration-300 ease-in-out"
               type="submit"
             >
-              {{ ArticleBtn }}
+              Đăng ký
             </base-button>
             <div
               class="flex flex-wrap lg:flex-nowrap items-center wow animate__animated animate__fadeInUp animated"
@@ -75,8 +70,7 @@ export default {
   },
   data() {
     return {
-      title: 'Articles',
-      ArticleBtn: 'Đăng ký',
+      //
     }
   },
 }
