@@ -84,12 +84,31 @@
       @handleChangePage="handleChangePage"
       @handleSizeChange="handleSizeChange"
     ></paginationcopy>
+    <client-only>
+      <quill-editor
+        v-model="content"
+        :required="true"
+        label="Nội dung"
+        placeholder="Nội dung"
+        rules="required"
+        name="content"
+        style="height: 500px"
+      />
+    </client-only>
   </div>
 </template>
 <script>
+// import Form from 'vform'
+// import cloneDeep from 'lodash/cloneDeep'
+// const defaultForm = {
+//   thumbnail: '',
+// }
 export default {
   name: 'Testcomponent',
   components: {
+    // BSingleImageUploadWithValidation: () =>
+    //   import('~/components/base/input/BSingleImageUploadWithValidation.vue'),
+    // Input: () => import('~/components/base/input/input'),
     InputWithValidation: () =>
       import('~/components/base/input/InputWithValidation'),
     Pagination: () => import('~/components/base/Pagination'),
@@ -98,10 +117,16 @@ export default {
     CheckboxWithValidation: () =>
       import('~/components/base/input/CheckboxWithValidation'),
     // FilterCheckBox: () => import('~/components/base/FilterCheckBox'),
+    // ScrollUp: () => import('~/components/base/ScrollUp'),
   },
   layout: 'fullscreen',
   data() {
     return {
+      // form: cloneDeep(defaultForm),
+      // vForm: new Form(),
+      form: {
+        thumbnail: '',
+      },
       email: 'abc@gmail.com',
       password: '123456',
       status: true,
@@ -113,6 +138,7 @@ export default {
         { text: 'Five', value: 5 },
       ],
       showPassword: false,
+      content: null,
     }
   },
   watch: {

@@ -28,6 +28,7 @@ export default {
       src: '~/plugins/vue-awesome-swiper',
       mode: 'client',
     },
+    { src: '~/plugins/quill-editor', ssr: false },
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components

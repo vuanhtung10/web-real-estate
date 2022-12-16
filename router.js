@@ -1,4 +1,3 @@
-/* eslint-disable import/no-duplicates */
 import Vue from 'vue'
 import Router from 'vue-router'
 import facebook from '~/pages/auth/facebook'
@@ -7,11 +6,12 @@ import index from '~/pages/index'
 import login from '~/pages/login'
 import register from '~/pages/register'
 import testComponent from '~/pages/test-component'
+import articleCreate from '~/pages/articleCreate'
 import article from '~/pages/article'
 import articleDetail from '~/pages/articleDetail'
-import articleCreate from '~/pages/articleCreate'
 import info from '~/pages/info'
 
+// import page1 from '~/pages/page1'
 Vue.use(Router)
 
 // function interopDefault(promise) {
@@ -64,7 +64,7 @@ export function createRouter() {
       },
 
       {
-        path: '/article/:slug',
+        path: '/article/detail/:slug',
         name: 'articleDetail',
         component: articleDetail,
       },
@@ -78,6 +78,16 @@ export function createRouter() {
         name: 'info',
         component: info,
       },
+      {
+        path: '/article/:slug',
+        name: 'articleDetail',
+        component: articleDetail,
+      },
+      // {
+      //   path: '/article/page1',
+      //   name: 'page1',
+      //   component: page1,
+      // },
     ],
   })
 }
