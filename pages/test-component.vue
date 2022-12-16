@@ -82,6 +82,7 @@
     <div>
       <list-article />
     </div>
+    <house-filter />
   </div>
 </template>
 <script>
@@ -96,7 +97,7 @@ export default {
     CheckboxWithValidation: () =>
       import('~/components/base/input/CheckboxWithValidation'),
     // FilterCheckBox: () => import('~/components/base/FilterCheckBox'),
-    // ScrollUp: () => import('~/components/base/ScrollUp'),
+    HouseFilter: () => import('~/components/base/HouseFilter'),
   },
   layout: 'fullscreen',
   data() {

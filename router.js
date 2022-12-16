@@ -6,10 +6,8 @@ import index from '~/pages/index'
 import login from '~/pages/login'
 import register from '~/pages/register'
 import testComponent from '~/pages/test-component'
-import articleCreate from '~/pages/articleCreate'
 import article from '~/pages/article'
 import articleDetail from '~/pages/articleDetail'
-import page1 from '~/pages/page1'
 Vue.use(Router)
 
 // function interopDefault(promise) {
@@ -57,34 +55,13 @@ export function createRouter() {
       },
       {
         path: '/article/',
-        name: 'article',
-        component: article,
-      },
-
-      {
-        path: '/article/:slug',
-        name: 'articleDetail',
-        component: articleDetail,
-      },
-      {
-        path: '/article/create',
-        name: 'articleCreate',
-        component: articleCreate,
-      },
-      {
-        path: '/article',
-        name: 'article',
+        name: 'Tin Tức',
         component: article,
       },
       {
-        path: '/article/:slug',
+        path: '/tin-tuc/:slug',
         name: 'articleDetail',
         component: articleDetail,
-      },
-      {
-        path: '/article/page1',
-        name: 'page1',
-        component: page1,
       },
     ],
   })

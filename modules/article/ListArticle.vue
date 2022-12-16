@@ -49,9 +49,7 @@ export default {
   filters: {
     changeFormatDate(value) {
       if (!value) return ''
-      console.log(1, value)
       value = dayjs(value).locale('vi').format('dddd, D/MM/YYYY HH:mm')
-      console.log(2, value)
       return value
     },
   },

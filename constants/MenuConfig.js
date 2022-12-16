@@ -5,7 +5,7 @@ export default [
   },
   {
     title: 'Tin tức',
-    page: '/info',
+    page: '/article',
   },
   {
     title: 'Dự Án',
