@@ -8,6 +8,10 @@ export default [
     page: '/tin-tuc',
   },
   {
+    title: 'Mua bán',
+    page: '/thong-tin-mua-ban-nha-dat',
+  },
+  {
     title: 'Dự Án',
     page: '/project',
   },

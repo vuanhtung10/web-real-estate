@@ -1,6 +1,6 @@
 <template>
   <!--Header-->
-  <header class="bg-transparent sticky-bar mt-4">
+  <header class="bg-transparent sticky top-0 bg-white z-50">
     <div class="container bg-transparent">
       <nav class="bg-transparent flex justify-between items-center py-3">
         <a class="text-3xl font-semibold leading-none" href="index.html">

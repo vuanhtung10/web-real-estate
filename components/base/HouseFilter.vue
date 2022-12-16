@@ -44,6 +44,7 @@
   </div>
 </template>
 <script>
+import cloneDeep from 'lodash/cloneDeep'
 import { priceRange } from '~/constants/FilterData'
 export default {
   components: {
@@ -79,20 +80,24 @@ export default {
       this.$emit('input', this.value)
     },
     input0(newVal) {
+      console.log('abc')
       if (newVal) {
         this.slider_value[0] = newVal
-        this.$refs.slider.setValues()
       } else {
-        this.slider_value[0] = 1
+        this.slider_value[0] = 0
       }
+      this.$refs.slider.setValues()
     },
     input1(newVal) {
       if (newVal) {
         this.slider_value[1] = newVal
-        this.$refs.slider.setValues(newVal)
+        this.slider_value[0] = this.input0
       } else {
         this.slider_value[1] = 80
+        this.slider_value[0] = this.input0
+        console.log('here2', this.slider_value[0])
       }
+      this.$refs.slider.setValues()
     },
   },
   methods: {
@@ -107,8 +112,10 @@ export default {
         this.unit
     },
     handleChangeSelect() {
-      this.slider_value = this.value
+      this.slider_value = cloneDeep(this.value)
       this.value = this.value[0] + '-' + this.value[1] + ' ' + this.unit
+      this.input0 = this.slider_value[0]
+      this.input1 = this.slider_value[1]
     },
     changeInput0(val) {
       // this.$refs.slider.setValues()

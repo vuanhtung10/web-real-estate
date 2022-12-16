@@ -6,7 +6,6 @@
         height="500px"
         :interval="5000"
         arrow="always"
-        class="background-gray"
         @change="handleChangeItem"
         @setActiveItem="setActiveItem"
       >
@@ -211,7 +210,6 @@ export default {
   },
   methods: {
     handleChangeItem(index) {
-      console.log('here', index)
       this.itemActive = index
     },
     setActiveItem(index) {
