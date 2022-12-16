@@ -1,7 +1,6 @@
 <template>
   <el-pagination
     v-if="!loading && totalItem > 0"
-    :key="keyPagination"
     class="pagination-custom"
     primary
     background

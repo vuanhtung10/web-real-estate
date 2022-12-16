@@ -79,22 +79,10 @@
     <switch-with-validation v-model="status" />
     <checkbox-with-validation v-model="value" :value-options="listOptions" />
     <!-- <filter-check-box label="Size" class="w-[290px]" /> -->
-    <paginationcopy
-      :total-item="totalItem"
-      @handleChangePage="handleChangePage"
-      @handleSizeChange="handleSizeChange"
-    ></paginationcopy>
-    <client-only>
-      <quill-editor
-        v-model="content"
-        :required="true"
-        label="Nội dung"
-        placeholder="Nội dung"
-        rules="required"
-        name="content"
-        style="height: 500px"
-      />
-    </client-only>
+    <div>
+      <list-article />
+    </div>
+    <house-filter />
   </div>
 </template>
 <script>
@@ -117,7 +105,7 @@ export default {
     CheckboxWithValidation: () =>
       import('~/components/base/input/CheckboxWithValidation'),
     // FilterCheckBox: () => import('~/components/base/FilterCheckBox'),
-    // ScrollUp: () => import('~/components/base/ScrollUp'),
+    HouseFilter: () => import('~/components/base/HouseFilter'),
   },
   layout: 'fullscreen',
   data() {
