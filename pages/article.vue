@@ -50,10 +50,10 @@
             >
               Đăng ký
             </base-button>
-            <div
+            <!-- <div
               class="flex flex-wrap lg:flex-nowrap items-center wow animate__animated animate__fadeInUp animated"
               data-wow-delay=".3s"
-            ></div>
+            ></div> -->
           </div>
         </div>
       </div>

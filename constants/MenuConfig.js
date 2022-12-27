@@ -13,7 +13,7 @@ export default [
   },
   {
     title: 'Dự Án',
-    page: '/project',
+    page: '/du-an',
   },
   {
     title: 'Liên Hệ',

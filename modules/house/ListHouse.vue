@@ -6,7 +6,7 @@
         :key="`house${index}`"
         class="p-3 shadow-hover"
       >
-        <nuxt-link :to="{ name: 'articleDetail', params: { slug: item.slug } }">
+        <nuxt-link :to="{ name: 'houseDetail', params: { slug: item.slug } }">
           <div class="relative w-full pt-[100%]">
             <img
               class="absolute h-full object-cover inset-0"
@@ -36,19 +36,18 @@
     <Pagination
       :total-item="totalItem"
       :page-size="limit"
-      :start="start"
       class="float-right pb-20"
       @handleChangePage="handleChangePage"
     />
-    <Loading :loading="loading" />
+    <loading-overlay :loading="loading" />
   </div>
 </template>
 <script>
 import iconCamera from 'assets/imgs/number-image.svg'
 export default {
   components: {
-    Pagination: () => import('~/components/base/Pagination.vue'),
-    Loading: () => import('~/components/base/loading.vue'),
+    Pagination: () => import('~/components/base/Pagination'),
+    LoadingOverlay: () => import('~/components/base/LoadingOverlay'),
   },
   data() {
     return {
@@ -61,46 +60,43 @@ export default {
     }
   },
   watch: {
-    '$route.query.page'(search) {
-      if (
-        this.$route.query.page &&
-        Number.isInteger(parseInt(this.$route.query.page)) &&
-        parseInt(this.$route.query.page)
-      ) {
-        this.start = parseInt(this.$route.query.page)
-      }
-      this.loadData()
-    },
+    // '$route.query.page'(search) {
+    //   if (
+    //     this.$route.query.page &&
+    //     Number.isInteger(parseInt(this.$route.query.page)) &&
+    //     parseInt(this.$route.query.page)
+    //   ) {
+    //     this.start = parseInt(this.$route.query.page)
+    //   }
+    // this.loadData()
+    // },
   },
   mounted() {
-    if (
-      this.$route.query.page &&
-      Number.isInteger(parseInt(this.$route.query.page)) &&
-      parseInt(this.$route.query.page)
-    ) {
-      this.start = parseInt(this.$route.query.page)
-      console.log('tung')
-    }
+    // if (
+    //   this.$route.query.page &&
+    //   Number.isInteger(parseInt(this.$route.query.page)) &&
+    //   parseInt(this.$route.query.page)
+    // ) {
+    //   this.start = parseInt(this.$route.query.page)
+    // }
     this.loadData()
   },
   methods: {
     async loadData() {
       this.loading = true
       const { data } = await this.$axios.get(
-        `/article?start=${this.start - 1}&limit=${this.limit}`
+        `/house?start=${this.start}&limit=${this.limit}`
       )
-      // setTimeout(() => {
-      //   this.loading = false
-      // }, 2000)
-      this.loading = false
+      setTimeout(() => {
+        this.loading = false
+      }, 2000)
       this.listHouse = data.data
       this.totalItem = data.total
     },
     handleChangePage(val) {
-      // console.log('val la:', val)
-      // this.start = val - 1
-      // this.loadData(val)
-      this.$router.replace({ path: 'article', query: { page: val } })
+      // this.$router.replace({ path: 'house', query: { page: val } })
+      this.start = val - 1
+      this.loadData(val)
     },
   },
 }
