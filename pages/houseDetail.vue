@@ -6,6 +6,7 @@
         height="500px"
         :interval="5000"
         arrow="always"
+        class="carousel-image"
         @change="handleChangeItem"
         @setActiveItem="setActiveItem"
       >
@@ -193,10 +194,21 @@
         </div>
       </div>
     </div>
+    <div class="w-full flex justify-end">
+      <pagination
+        :total-item="totalItem"
+        :page-size="limit"
+        class="mb-20"
+        @handleChangePage="handleChangePage"
+      ></pagination>
+    </div>
   </div>
 </template>
 <script>
 export default {
+  components: {
+    Pagination: () => import('~/components/base/Pagination'),
+  },
   data() {
     return {
       images: [
@@ -206,6 +218,7 @@ export default {
         { src: require('~/assets/imgs/house-images/house-1-4.jpeg') },
       ],
       itemActive: 0,
+      data: null,
     }
   },
   methods: {
@@ -216,11 +229,19 @@ export default {
       this.$refs.carousel && this.$refs.carousel.setActiveItem(index)
       this.itemActive = index
     },
+    loadData() {
+      // cal api
+    },
   },
 }
 </script>
-<style>
+<style lang="scss">
 .el-carousel__item {
   background-color: rgba(0, 0, 0, 0.3);
+}
+.carousel-image {
+  .el-carousel__indicators--horizontal {
+    display: none;
+  }
 }
 </style>

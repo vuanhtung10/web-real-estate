@@ -8,7 +8,8 @@ import register from '~/pages/register'
 import testComponent from '~/pages/test-component'
 import article from '~/pages/article'
 import articleDetail from '~/pages/articleDetail'
-import info from '~/pages/info'
+import houseDetail from '~/pages/houseDetail'
+import house from '~/pages/house'
 
 // import page1 from '~/pages/page1'
 Vue.use(Router)
@@ -57,14 +58,19 @@ export function createRouter() {
         component: register,
       },
       {
-        path: '/tin-tuc/',
+        path: '/tin-tuc',
         name: 'article',
         component: article,
       },
       {
-        path: '/thong-tin-mua-ban-nha-dat/',
-        name: 'info',
-        component: info,
+        path: '/danh-sach-nha-dat',
+        name: 'house',
+        component: house,
+      },
+      {
+        path: '/thong-tin-mua-ban-nha-dat/:slug',
+        name: 'houseDetail',
+        component: houseDetail,
       },
       {
         path: '/article/detail/:slug',

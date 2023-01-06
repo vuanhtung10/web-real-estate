@@ -13,8 +13,13 @@
       <el-checkbox
         v-for="(item, index) in listOptions"
         :key="item.toString() + index"
-        :label="item.value"
-        >{{ item.text }}</el-checkbox
+        :label="item.code"
+        class="hover:bg-[#f2f2f2] items-center py-1"
+      >
+        <div class="flex items-center">
+          <img v-if="item.src" class="w-4 h-4 mr-2" :src="item.src" />
+          {{ item.name }}
+        </div></el-checkbox
       >
     </el-checkbox-group>
   </div>
@@ -23,8 +28,8 @@
 export default {
   props: {
     label: { type: String, default: '' },
-    // eslint-disable-next-line vue/require-prop-types
-    value: { default: '' },
+    // eslint-disable-next-line vue/require-valid-default-prop
+    value: { type: Array, default: [] },
     // eslint-disable-next-line vue/require-valid-default-prop
     valueOptions: { type: Array, default: [] },
   },
@@ -40,12 +45,13 @@ export default {
       this.$emit('input', newVal)
     },
     value(newVal) {
-      this.innerValue = newVal
       console.log('newVal', newVal)
+      console.log('newVal', this.listOptions)
+      this.innerValue = newVal
     },
-  },
-  mounted() {
-    console.log(this.listOptions)
+    valueOptions(newVal) {
+      this.listOptions = newVal
+    },
   },
   created() {
     if (this.value) {
@@ -56,10 +62,8 @@ export default {
     handleCheckAllChange(val) {
       this.innerValue = val ? this.valueOptions.map((item) => item.value) : []
     },
-    handleCheckedOptionsChange(value) {
-      console.log('value', value)
-      console.log('innerValue', this.innerValue)
-      const checkedCount = value.length
+    handleCheckedOptionsChange(data) {
+      const checkedCount = data.length
       this.checkAll = checkedCount === this.listOptions.length
     },
   },

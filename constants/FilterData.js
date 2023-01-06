@@ -29,6 +29,37 @@ export const priceRange = [
   },
 ]
 
+export const areaRange = [
+  {
+    value: [1, 30],
+    label: 'Dưới 30m²',
+  },
+  {
+    value: [30, 50],
+    label: '30-50m²',
+  },
+  {
+    value: [50, 80],
+    label: '50 - 80m²',
+  },
+  {
+    value: [80, 100],
+    label: '80 - 100m²',
+  },
+  {
+    value: [100, 150],
+    label: '100 - 150m²',
+  },
+  {
+    value: [150, 200],
+    label: '150 - 200m²',
+  },
+  {
+    value: [200, 250],
+    label: '200 - 250m2',
+  },
+]
+
 export const houseStatus = [
   {
     value: 'Sale soon',

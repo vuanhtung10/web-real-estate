@@ -24,6 +24,7 @@ export default {
   plugins: [
     '~/plugins/vue-lazyload',
     '~/plugins/element-ui',
+
     {
       src: '~/plugins/vue-awesome-swiper',
       mode: 'client',

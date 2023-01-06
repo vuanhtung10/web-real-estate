@@ -1,10 +1,11 @@
 <template>
   <div>
-    <div>
+    <div class="border-r-[1px]">
       <el-select
         v-model="value"
         :value-key="value"
         placeholder="select"
+        @visible-change="visibleChange"
         @change="handleChangeSelect"
       >
         <div class="flex flex-col px-4 pt-4 pb-3">
@@ -80,7 +81,6 @@ export default {
       this.$emit('input', this.value)
     },
     input0(newVal) {
-      console.log('abc')
       if (newVal) {
         this.slider_value[0] = newVal
       } else {
@@ -117,6 +117,12 @@ export default {
       this.input0 = this.slider_value[0]
       this.input1 = this.slider_value[1]
     },
+    visibleChange(event) {
+      if (event) {
+        console.log(1)
+        this.$emit('visible')
+      }
+    },
     changeInput0(val) {
       // this.$refs.slider.setValues()
     },
@@ -129,5 +135,6 @@ export default {
 <style>
 .el-input__inner {
   text-align: center;
+  border: none;
 }
 </style>

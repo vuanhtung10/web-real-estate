@@ -9,7 +9,7 @@ export default [
   },
   {
     title: 'Mua bán',
-    page: '/thong-tin-mua-ban-nha-dat',
+    page: '/danh-sach-nha-dat',
   },
   {
     title: 'Dự Án',

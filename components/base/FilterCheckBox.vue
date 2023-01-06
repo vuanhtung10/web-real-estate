@@ -1,6 +1,6 @@
 <template>
   <div class="border border-[#e6e6e6] w-full">
-    <div
+    <!-- <div
       class="bg-[black] text-white p-[15px] flex justify-between items-center"
     >
       <span class="text-lg font-semibold">{{ label }}</span>
@@ -8,7 +8,7 @@
         <font-awesome-icon v-if="show" icon="fa-solid fa-minus" />
         <font-awesome-icon v-else icon="fa-solid fa-plus" />
       </button>
-    </div>
+    </div> -->
     <div class="block" :class="{ 'p-[15px]': show }">
       <checkbox-with-validation
         v-if="show"
@@ -19,10 +19,10 @@
   </div>
 </template>
 <script>
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+// import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 export default {
   components: {
-    FontAwesomeIcon,
+    // FontAwesomeIcon,
     CheckboxWithValidation: () =>
       import('~/components/base/input/CheckboxWithValidation'),
   },
@@ -32,8 +32,16 @@ export default {
   data() {
     return {
       listOptions: [
-        { text: 'One', value: 1 },
-        { text: 'Two', value: 2 },
+        {
+          src: require('~/assets/icons/home-city-outline.svg'),
+          text: 'One',
+          value: 1,
+        },
+        {
+          src: require('~/assets/icons/home-city-outline.svg'),
+          text: 'One',
+          value: 1,
+        },
       ],
       value: [],
       show: true,
