@@ -21,7 +21,7 @@
           <h3 class="my-2 text-2xl font-bold font-heading line-clamp-2">
             {{ item.name }}
           </h3>
-          <div class="text-blueGray-400 leading-loose">
+          <div class="text-blueGray-400 leading-loose line-clamp-3">
             {{ item.description }}
           </div>
         </nuxt-link>

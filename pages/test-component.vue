@@ -96,6 +96,8 @@
       <list-article />
     </div>
     <house-filter />
+    <br />
+    <house-area-filter />
   </div>
 </template>
 <script>
@@ -117,10 +119,9 @@ export default {
     //   import('~/components/base/input/SwitchWithValidation'),
     CheckboxWithValidation: () =>
       import('~/components/base/input/CheckboxWithValidation'),
-    // // FilterCheckBox: () => import('~/components/base/FilterCheckBox'),
-    // HouseFilter: () => import('~/components/base/HouseFilter'),
-    // FilterListCheckBox: () => import('~/components/base/FilterListCheckBox'),
-    MainFilter: () => import('~/components/layout/MainFilter'),
+    // FilterCheckBox: () => import('~/components/base/FilterCheckBox'),
+    HouseFilter: () => import('~/components/base/HouseFilter'),
+    HouseAreaFilter: () => import('~/components/base/HouseAreaFilter'),
   },
   layout: 'fullscreen',
   data() {

@@ -8,10 +8,9 @@ import register from '~/pages/register'
 import testComponent from '~/pages/test-component'
 import article from '~/pages/article'
 import articleDetail from '~/pages/articleDetail'
-import houseDetail from '~/pages/houseDetail'
 import house from '~/pages/house'
+import houseDetail from '~/pages/houseDetail'
 
-// import page1 from '~/pages/page1'
 Vue.use(Router)
 
 // function interopDefault(promise) {
@@ -81,6 +80,16 @@ export function createRouter() {
         path: '/tin-tuc/:slug',
         name: 'articleDetail',
         component: articleDetail,
+      },
+      {
+        path: '/du-an/',
+        name: 'house',
+        component: house,
+      },
+      {
+        path: '/du-an/:slug',
+        name: 'houseDetail',
+        component: houseDetail,
       },
     ],
   })

@@ -74,3 +74,71 @@ export const houseStatus = [
     label: 'Đã bàn giao',
   },
 ]
+
+export const houseDistrict = [
+  {
+    value: 'Q/H',
+    label: 'Quận/Huyện',
+    children: [
+      {
+        value: 'HK',
+        label: 'Hoàn Kiếm',
+      },
+      {
+        value: 'ĐĐ',
+        label: 'Đống Đa',
+      },
+      {
+        value: 'HBT',
+        label: 'Hai Bà Trưng',
+      },
+      {
+        value: 'CG',
+        label: 'Cầu Giấy',
+      },
+      {
+        value: 'HM',
+        label: 'Hoàng Mai',
+      },
+      {
+        value: 'HĐ',
+        label: 'Hà Đông',
+      },
+      {
+        value: 'TH',
+        label: 'Tây Hồ',
+      },
+      {
+        value: 'LB',
+        label: 'Long Biên',
+      },
+      {
+        value: 'TX',
+        label: 'Thanh Xuân',
+      },
+    ],
+  },
+  {
+    value: 'P/X',
+    label: 'Phường/Xã',
+  },
+  {
+    value: 'Đ/P',
+    label: 'Đường/Phố',
+  },
+]
+
+export const houseAddressHk = [
+  {
+    value: 'HB',
+    label: 'Hàng Bông',
+  },
+  {
+    value: 'BT',
+    label: 'Bà Triệu',
+  },
+  {
+    value: 'QT',
+    label: 'Quang Trung',
+  },
+]
