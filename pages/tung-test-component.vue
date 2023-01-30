@@ -98,6 +98,8 @@
     <house-filter />
     <br />
     <house-area-filter />
+    <filter-province />
+    <menu-filter />
   </div>
 </template>
 <script>
@@ -122,6 +124,8 @@ export default {
     // FilterCheckBox: () => import('~/components/base/FilterCheckBox'),
     HouseFilter: () => import('~/components/base/HouseFilter'),
     HouseAreaFilter: () => import('~/components/base/HouseAreaFilter'),
+    FilterProvince: () => import('~/components/base/FilterProvince'),
+    MenuFilter: () => import('~/components/base/MenuFilter'),
   },
   layout: 'fullscreen',
   data() {

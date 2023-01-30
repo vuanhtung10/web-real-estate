@@ -23,26 +23,34 @@
     >
       <div v-if="!typeShow">
         <div
-          class="border border-[#ccc] rounded-lg px-[15px] py-[13px] flex items-center justify-between"
-          @click="typeShow = 'city'"
+          class="border border-[#ccc] rounded-lg px-[15px] py-[13px] flex items-center justify-between cursor-pointer"
         >
-          <div class="flex flex-col">
+          <div class="flex flex-col" @click="typeShow = 'city'">
             <span class="text-sm">Tỉnh/Thành</span>
             <span v-if="city" class="text-sm font-semibold">{{
               city.name
             }}</span>
           </div>
-          <span>></span>
+          <span v-if="!city">></span>
+          <span v-if="city" @click="city = ''">x</span>
         </div>
         <div
-          class="border border-[#ccc] rounded-lg px-[15px] py-[13px] mt-3 flex items-center justify-between"
+          :class="{ cursorImage: isActive }"
+          class="border border-[#ccc] rounded-lg px-[15px] py-[13px] mt-3 flex items-center justify-between cursor-pointer"
           @click="openDistrict"
         >
-          <span class="text-sm">Quận/Huyện</span>
-          <span>></span>
+          <div class="text-sm">Quận/Huyện</div>
+          <div v-if="districts" class="text-sm font-semibold">
+            <span v-for="(item, i) in districtsObject" :key="'districts' + i"
+              >{{ item.name }}
+            </span>
+          </div>
+          <span v-if="!districts">></span>
+          <span v-if="districts" @click="deleteDistricts()">x</span>
         </div>
         <div
-          class="border border-[#ccc] rounded-lg px-[15px] py-[13px] mt-3 flex items-center justify-between"
+          :class="{ cursorImage: isActive }"
+          class="border border-[#ccc] rounded-lg px-[15px] py-[13px] mt-3 flex items-center justify-between cursor-pointer"
           @click="openWard"
         >
           <span class="text-sm">Phường/Xã</span>
@@ -120,6 +128,7 @@ export default {
   },
   data() {
     return {
+      isActive: true,
       show: false,
       typeShow: null,
       listOptionsCity: [],
@@ -139,6 +148,27 @@ export default {
       return tmp
     },
   },
+  watch: {
+    city() {
+      if (this.city) {
+        this.isActive = false
+      }
+    },
+
+    districts() {
+      console.log('districts', this.districts)
+      if (this.listOptionsWards) {
+        const result = this.listOptionsWards.filter((item) =>
+          this.districts.includes(item.code)
+        )
+        this.listOptionsWards = result
+        console.log('listOptionsWards', this.listOptionsWards)
+      }
+    },
+    wards() {
+      console.log('wards', this.wards)
+    },
+  },
   created() {
     this.loadCity()
   },
@@ -150,13 +180,13 @@ export default {
       if (response.data) this.listOptionsCity = response.data
     },
     async loadDistrict() {
-      if (this.city?.code) {
+      if (this.city.code) {
         const response = await this.$axios.get(
           `https://provinces.open-api.vn/api/p/${this.city.code}?depth=2`
         )
         if (response.data?.districts)
           this.listOptionsDistricts = response.data.districts
-        console.log('herrrr', this.listOptionsDistricts)
+        console.log('listOptionsDistricts', this.listOptionsDistricts)
       }
     },
     async loadWards(code) {
@@ -166,12 +196,18 @@ export default {
         )
         // if (response.data?.districts)
         //   this.listOptionsDistricts = response.data.districts
-        this.listOptionsWards.push(response.data)
-        console.log('herrrr', this.listOptionsWard)
+
+        const found = this.listOptionsWards.find((item) => item.code === code)
+        if (!found) {
+          console.log('aaaaaaaaa')
+          this.listOptionsWards.push(response.data)
+        }
+        console.log('listOptionsWards', this.listOptionsWards)
       }
     },
     selectCity(data) {
       this.city = data
+      console.log('city', this.city)
       this.typeShow = null
     },
     openDistrict() {
@@ -180,10 +216,21 @@ export default {
     },
     openWard() {
       this.typeShow = 'ward'
+      console.log('districtsObject', this.districtsObject)
       this.districts.forEach((code) => {
         this.loadWards(code)
       })
+      // this.listOptionsWards = this.result
     },
+  },
+  deleteDistricts(event) {
+    this.districts = null
   },
 }
 </script>
+<style>
+.cursorImage {
+  cursor: url(https://staticfile.batdongsan.com.vn/images/Product/cursors-block.svg),
+    auto !important;
+}
+</style>

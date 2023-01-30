@@ -5,7 +5,7 @@ import google from '~/pages/auth/google'
 import index from '~/pages/index'
 import login from '~/pages/login'
 import register from '~/pages/register'
-import testComponent from '~/pages/test-component'
+import tungtestComponent from '~/pages/tung-test-component'
 import article from '~/pages/article'
 import articleDetail from '~/pages/articleDetail'
 import house from '~/pages/house'
@@ -42,9 +42,9 @@ export function createRouter() {
         component: index,
       },
       {
-        path: '/test-component',
-        name: 'test-component',
-        component: testComponent,
+        path: '/tung-test-component',
+        name: 'tung-test-component',
+        component: tungtestComponent,
       },
       {
         path: '/login',

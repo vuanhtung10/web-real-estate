@@ -142,3 +142,18 @@ export const houseAddressHk = [
     label: 'Quang Trung',
   },
 ]
+
+export const menuOptions = [
+  {
+    title: 'Tỉnh/Thành',
+    type: 'city',
+  },
+  {
+    title: 'Quận/Huyện',
+    type: 'district',
+  },
+  {
+    title: 'Phường/Xã',
+    type: 'ward',
+  },
+]
