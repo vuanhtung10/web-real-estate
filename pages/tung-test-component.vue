@@ -99,7 +99,7 @@
     <br />
     <house-area-filter />
     <filter-province />
-    <menu-filter />
+    <!-- <filter-province-test /> -->
   </div>
 </template>
 <script>
@@ -125,7 +125,7 @@ export default {
     HouseFilter: () => import('~/components/base/HouseFilter'),
     HouseAreaFilter: () => import('~/components/base/HouseAreaFilter'),
     FilterProvince: () => import('~/components/base/FilterProvince'),
-    MenuFilter: () => import('~/components/base/MenuFilter'),
+    // FilterProvinceTest: () => import('~/components/base/FilterProvinceTest'),
   },
   layout: 'fullscreen',
   data() {

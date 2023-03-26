@@ -1,14 +1,13 @@
 <template>
   <div class="w-[200px]">
     <div
-      v-click-outside="close"
-      class="border-l-[1px] border-r-[1px] p-4 hover:bg-[#f2f2f2] cursor-pointer"
-      @click="show = !show"
+      class="relative w-[210px] border border-solid border-white bg-slate-200 cursor-pointer p-4"
+      @click="OpenMenu()"
     >
       <div class="flex justify-between">
-        <span class="text-xs">Loại nhà đất</span>
+        <span class="text-xs">Trên toàn quốc</span>
         <span
-          v-if="!show"
+          v-if="show"
           class="el-icon-arrow-down text-[#C0C4CC] rotate-0 duration-300"
         ></span>
         <span
@@ -17,157 +16,229 @@
         ></span>
       </div>
     </div>
-    <div
-      v-if="show"
-      class="absolute shadow-2xl bg-white w-[300px] rounded z-10 p-4"
-    >
-      <div v-if="!typeShow">
+    <div v-if="show" class="absolute w-[400px] shadow-2xl rounded">
+      <div v-show="!typeShow" class="px-4 pt-4">
+        <h1 class="mb-3 font-semibold">khu vực và dự án</h1>
         <div
-          class="border border-[#ccc] rounded-lg px-[15px] py-[13px] flex items-center justify-between cursor-pointer"
+          v-for="(item, index) in menuOptions"
+          :key="'menuOptions' + index"
+          ref="menuItem"
+          class="flex justify-between items-center px-[15px] py-[13px] border border-solid border-inherit rounded-md mb-3 cursor-pointer"
+          :class="[
+            item.type === 'district' || item.type === 'ward' ? cursorImage : '',
+          ]"
+          @click="handleSelect(item)"
         >
-          <div class="flex flex-col" @click="typeShow = 'city'">
-            <span class="text-sm">Tỉnh/Thành</span>
-            <span v-if="city" class="text-sm font-semibold">{{
-              city.name
-            }}</span>
+          <div class="flex-1">
+            <span>{{ item.title }}</span>
+            <div v-if="item.type === 'city' && city">{{ city.name }}</div>
+            <div v-if="item.type === 'district' && districts" class="flex">
+              <div
+                v-for="(item, index) in districts"
+                :key="'districts' + index"
+              >
+                {{ item.name }},
+              </div>
+            </div>
+            <div v-if="item.type === 'ward' && wards" class="flex">
+              <div v-for="(item, index) in wards" :key="'wards' + index">
+                {{ item.name }},
+              </div>
+            </div>
           </div>
-          <span v-if="!city">></span>
-          <span v-if="city" @click="city = ''">x</span>
-        </div>
-        <div
-          :class="{ cursorImage: isActive }"
-          class="border border-[#ccc] rounded-lg px-[15px] py-[13px] mt-3 flex items-center justify-between cursor-pointer"
-          @click="openDistrict"
-        >
-          <div class="text-sm">Quận/Huyện</div>
-          <div v-if="districts" class="text-sm font-semibold">
-            <span v-for="(item, i) in districtsObject" :key="'districts' + i"
-              >{{ item.name }}
-            </span>
-          </div>
-          <span v-if="!districts">></span>
-          <span v-if="districts" @click="deleteDistricts()">x</span>
-        </div>
-        <div
-          :class="{ cursorImage: isActive }"
-          class="border border-[#ccc] rounded-lg px-[15px] py-[13px] mt-3 flex items-center justify-between cursor-pointer"
-          @click="openWard"
-        >
-          <span class="text-sm">Phường/Xã</span>
-          <span>></span>
+          <i
+            v-show="item.type === 'city' && !city"
+            class="el-icon-arrow-right"
+          ></i>
+          <i
+            v-if="item.type === 'district' && !districts"
+            class="el-icon-arrow-right"
+          ></i>
+          <i
+            v-if="item.type === 'ward' && !wards"
+            class="el-icon-arrow-right"
+          ></i>
+          <!--
+          <i
+            :class="[item.type === 'city' && !city ? arrowClass : closeClass]"
+            @click="(event) => deleteCity(event)"
+          ></i> -->
+          <i
+            v-if="item.type === 'city' && city"
+            class="el-icon-close cursor-pointer"
+            @click="(event) => deleteCity(event)"
+          ></i>
+
+          <i
+            v-if="item.type === 'district' && districts"
+            class="el-icon-close cursor-pointer"
+            @click="(event) => deleteDistricts(event)"
+          ></i>
+          <i
+            v-if="item.type === 'ward' && wards"
+            class="el-icon-close cursor-pointer"
+            @click="(event) => deleteWards(event)"
+          ></i>
         </div>
       </div>
+      <!-- menuchild -->
+
       <div v-if="typeShow === 'city'">
-        <p class="font-medium text-sm text-center">
-          <span class="absolute left-[13px]" @click="typeShow = null">
-            &lt;
-          </span>
-          Chọn tỉnh thành
-        </p>
-        <div class="h-[300px] overflow-y-auto mt-5">
+        <div class="flex items-center p-4">
+          <i
+            class="el-icon-back text-base cursor-pointer"
+            @click="onBack()"
+          ></i>
+          <span class="m-auto font-semibold">Chọn Tỉnh/Thành</span>
+        </div>
+        <div class="h-[300px] overflow-y-auto listtopic">
+          <p class="px-4 py-[6px] text-xs text-[#74150F]">Tất cả Tỉnh/Thành</p>
           <div
-            v-for="(item, i) in listOptionsCity"
-            :key="'city' + i"
-            class="py-[6px] hover:bg-[#f2f2f2] text-sm"
+            v-for="(item, index) in listOptionsCity"
+            :key="'city' + index"
+            class="flex justify-between items-center px-4 py-[6px] hover:bg-[#f2f2f2] cursor-pointer"
             @click="selectCity(item)"
           >
-            {{ item.name }}
+            <span>{{ item.name }}</span>
+            <i class="el-icon-arrow-right"></i>
           </div>
         </div>
       </div>
       <div v-if="typeShow === 'district'">
-        <p class="font-medium text-sm text-center">
-          <span class="absolute left-[13px]" @click="typeShow = null">
-            &lt;
-          </span>
-          Quận huyện
-        </p>
-        <div class="h-[300px] overflow-y-auto mt-5">
+        <div class="flex items-center p-4">
+          <i class="el-icon-back text-base" @click="typeShow = null"></i>
+          <span class="m-auto font-semibold">Chọn Quận/Huyện</span>
+        </div>
+        <div class="h-[300px] overflow-y-auto mt-5 listtopic">
           <checkbox-with-validation
             v-model="districts"
             class="column-check-box"
-            :value-options="listOptionsDistricts"
+            :value-options="listOptionsDistrict"
             :close-on-backdrop="true"
             :close-on-esc="true"
           />
         </div>
       </div>
       <div v-if="typeShow === 'ward'">
-        <p class="font-medium text-sm text-center">
-          <span class="absolute left-[13px]" @click="typeShow = null">
-            &lt;
-          </span>
-          Phường xã
-        </p>
-        <div class="h-[300px] overflow-y-auto mt-5">
-          <div v-for="(item, i) in listOptionsWards" :key="'wards' + i">
-            {{ item.name }}
+        <div class="flex items-center p-4">
+          <i class="el-icon-back text-base" @click="typeShow = null"></i>
+          <span class="m-auto font-semibold">Chọn Phường/Xã</span>
+        </div>
+        <div class="h-[300px] overflow-y-auto mt-5 listtopic">
+          <div
+            v-for="(item, index) in listOptionsWard"
+            :key="'listOptionsWard' + index"
+          >
+            <span class="px-4 py-3 text-xs text-[#999]">{{ item.name }}</span>
             <checkbox-with-validation
               v-model="wards"
               class="column-check-box"
               :value-options="item.wards"
               :close-on-backdrop="true"
               :close-on-esc="true"
+              :hide-check-all="true"
+              :un-check-all="unCheckAll"
             />
           </div>
         </div>
-        listOptionsWard
+      </div>
+      <div
+        v-if="onHide"
+        class="flex justify-between border-t border-solid border-inherit"
+      >
+        <div
+          class="flex m-[7px] border border-solid border-transparent py-[5px] px-[11px] hover:bg-[#FAFAFA] items-center"
+          @click="clear()"
+        >
+          <i class="el-icon-refresh"></i>
+          <span class="ml-2">Đặt lại</span>
+        </div>
+        <span
+          class="m-[7px] text-white rounded bg-[#E03C31] border border-solid border-[#E03C31] py-[5px] px-[11px] hover:bg-[#FF837A]"
+          @click="handleSubmit()"
+          >Áp dụng</span
+        >
       </div>
     </div>
+    <div></div>
   </div>
 </template>
 <script>
-import { ClickOutside } from '~/directive/click-outside'
+import { menuOptions } from '~/constants/FilterData'
 export default {
   components: {
     CheckboxWithValidation: () =>
       import('~/components/base/input/CheckboxWithValidation'),
   },
-  directives: {
-    ClickOutside,
-  },
   data() {
     return {
-      isActive: true,
+      cursorImage: 'cursorImage',
       show: false,
       typeShow: null,
+      menuOptions,
       listOptionsCity: [],
-      listOptionsDistricts: [],
-      listOptionsWards: [],
+      listOptionsDistrict: [],
+      listOptionsDistrictCode: {},
+      listOptionsWard: [],
       city: null,
       districts: null,
       wards: null,
+      onHide: true,
+      unCheckAll: false,
     }
   },
   computed: {
-    districtsObject() {
-      if (!this.districts) return []
-      const tmp = this.listOptionsDistricts.filter((item) =>
-        this.districts.includes(item.code)
-      )
-      return tmp
-    },
+    //
   },
   watch: {
+    // '$refs.listitem.filteredItems'(value) {
+    //   console.log('tung', value)
+    // },
     city() {
+      console.log('ref', this.$refs.menuItem)
       if (this.city) {
-        this.isActive = false
+        console.log('ref', this.$refs.menuItem)
+        this.$refs.menuItem[1].classList.add('pointer')
+        this.districts = null
+        this.wards = null
+      } else {
+        this.$refs.menuItem[1].classList.remove('pointer')
       }
     },
-
     districts() {
       console.log('districts', this.districts)
-      if (this.listOptionsWards) {
-        const result = this.listOptionsWards.filter((item) =>
-          this.districts.includes(item.code)
-        )
-        this.listOptionsWards = result
-        console.log('listOptionsWards', this.listOptionsWards)
+      if (this.districts && this.districts.length !== 0) {
+        this.$refs.menuItem[2].classList.add('pointer')
+        const newDistricts = this.districts.map((item) => {
+          return item.code
+        })
+        console.log('newDistricts', newDistricts)
+        if (this.listOptionsWard && this.listOptionsWard.length !== 0) {
+          const result = this.listOptionsWard.filter((item) =>
+            newDistricts.includes(item.code)
+          )
+          this.listOptionsWard = result
+          console.log('listOptionsWard', this.listOptionsWard)
+          if (this.wards) {
+            console.log('wards', this.wards)
+            const resultwards = this.wards.filter((item) =>
+              newDistricts.includes(item.district_code)
+            )
+            console.log('resultwards', this.resultwards)
+            this.wards = resultwards
+            // console.log('wards', this.wards)
+          }
+        }
+      } else {
+        this.$refs.menuItem[2].classList.remove('pointer')
       }
     },
     wards() {
       console.log('wards', this.wards)
     },
+  },
+  mounted() {
+    console.log('ref', this.$refs.menuItem)
   },
   created() {
     this.loadCity()
@@ -177,54 +248,139 @@ export default {
       const response = await this.$axios.get(
         `https://provinces.open-api.vn/api/p`
       )
-      if (response.data) this.listOptionsCity = response.data
+      return (this.listOptionsCity = response.data)
     },
-    async loadDistrict() {
-      if (this.city.code) {
-        const response = await this.$axios.get(
-          `https://provinces.open-api.vn/api/p/${this.city.code}?depth=2`
-        )
-        if (response.data?.districts)
-          this.listOptionsDistricts = response.data.districts
-        console.log('listOptionsDistricts', this.listOptionsDistricts)
-      }
-    },
-    async loadWards(code) {
-      if (this.city?.code) {
-        const response = await this.$axios.get(
-          `https://provinces.open-api.vn/api/d/${code}?depth=2`
-        )
-        // if (response.data?.districts)
-        //   this.listOptionsDistricts = response.data.districts
 
-        const found = this.listOptionsWards.find((item) => item.code === code)
-        if (!found) {
-          console.log('aaaaaaaaa')
-          this.listOptionsWards.push(response.data)
-        }
-        console.log('listOptionsWards', this.listOptionsWards)
+    async loadDistrict() {
+      const response = await this.$axios.get(
+        `https://provinces.open-api.vn/api/p/${this.city.code}?depth=2`
+      )
+      console.log('code', this.city.code)
+      console.log('response', response)
+      console.log('listOptionsDistrictCode', this.listOptionsDistrictCode)
+      if (
+        response.data?.districts &&
+        this.city.code !== this.listOptionsDistrictCode.code
+      ) {
+        this.listOptionsDistrict = response.data.districts
+        this.listOptionsDistrictCode = response.data
+      }
+
+      console.log('listOptionsDistrict', this.listOptionsDistrict)
+    },
+
+    async loadWard(code) {
+      const response = await this.$axios.get(
+        `https://provinces.open-api.vn/api/d/${code}?depth=2`
+      )
+      console.log('response', response)
+      this.listOptionsWard.push(response.data)
+      // const found = this.listOptionsWard.find((item) => item.code === code)
+      // console.log('found', found)
+      // if (!found) {
+      //   console.log('aaaaaaaaa')
+      //   this.listOptionsWard.push(response.data)
+      // }
+      console.log('wards', this.wards)
+      console.log('listOptionsWards', this.listOptionsWard)
+    },
+    OpenMenu() {
+      // console.log('ref', this.$refs.listitem)
+      // this.$refs.listitem.forEach((item) => {
+      //   console.log('item', item.innerText)
+      //   if (item.innerText === 'Tỉnh/Thành') {
+      //     console.log('tung')
+      //     this.isActive = false
+      //   } else {
+      //     this.isActive = true
+      //   }
+      // })
+      this.show = !this.show
+    },
+    cursorChange(item) {
+      console.log('item', item)
+      if (item.type === 'city') {
+        this.isActive = false
       }
     },
-    selectCity(data) {
-      this.city = data
-      console.log('city', this.city)
+    onBack() {
       this.typeShow = null
+      this.onHide = true
     },
-    openDistrict() {
-      this.typeShow = 'district'
+
+    clear() {
+      if (this.typeShow === 'district') {
+        this.districts = []
+        this.wards = []
+      }
+      if (this.typeShow === 'ward') {
+        this.wards = []
+        this.unCheckAll = true
+      }
+      console.log('districts', this.districts)
+    },
+
+    handleSelect(value) {
+      if (value.type === 'city') {
+        this.typeShow = 'city'
+        this.onHide = false
+      }
+      if (value.type === 'district' && this.city) {
+        this.typeShow = 'district'
+        console.log('quynh', this.districts)
+      }
+      if (
+        value.type === 'ward' &&
+        this.districts &&
+        this.districts.length !== 0
+      ) {
+        this.typeShow = 'ward'
+        if (this.districts) {
+          this.districts.forEach((item) => {
+            console.log('item-code', item.code)
+            if (this.listOptionsWard.length === 0) {
+              this.loadWard(item.code)
+            } else {
+              const found = this.listOptionsWard.find(
+                (OptionWard) => OptionWard.code === item.code
+              )
+              console.log('found', found)
+              if (!found) {
+                this.loadWard(item.code)
+              }
+            }
+          })
+        }
+      }
+    },
+
+    selectCity(value) {
+      this.onHide = true
+      this.typeShow = null
+      this.city = value
+      console.log('city', this.city)
       this.loadDistrict()
     },
-    openWard() {
-      this.typeShow = 'ward'
-      console.log('districtsObject', this.districtsObject)
-      this.districts.forEach((code) => {
-        this.loadWards(code)
-      })
-      // this.listOptionsWards = this.result
+
+    handleSubmit() {
+      this.typeShow = null
     },
-  },
-  deleteDistricts(event) {
-    this.districts = null
+    deleteCity(event) {
+      event.stopPropagation()
+      console.log('event', event)
+      this.city = null
+      this.districts = null
+      this.wards = null
+    },
+    deleteDistricts(event) {
+      event.stopPropagation()
+      this.districts = null
+      this.wards = null
+    },
+    deleteWards(event) {
+      event.stopPropagation()
+      this.wards = null
+    },
   },
 }
 </script>
@@ -232,5 +388,29 @@ export default {
 .cursorImage {
   cursor: url(https://staticfile.batdongsan.com.vn/images/Product/cursors-block.svg),
     auto !important;
+}
+.pointer {
+  cursor: pointer !important;
+}
+
+.listtopic {
+  overflow-y: scroll;
+}
+.listtopic::-webkit-scrollbar-track {
+  /* -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3); */
+  border-radius: 10px;
+  background-color: #fff;
+  width: 5px;
+}
+
+.listtopic::-webkit-scrollbar {
+  width: 5px;
+  background-color: #fff;
+}
+
+.listtopic::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  /* -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3); */
+  background-color: #ccc;
 }
 </style>
